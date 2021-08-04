@@ -1,27 +1,29 @@
 <template>
   <header class="Header" :class="{ 'Header--closed': headerClosed }">
-    <h1 class="Header__title">
-      <WarrenLogo />
-      {{ title }}
-    </h1>
-    <div class="Header__slot Header-Slot">
-      <div
-        class="Header-Slot__inside Slot-Inside"
-        :class="{ 'Slot-Inside--invisible': headerClosed }"
-      >
-        <slot />
-      </div>
-      <div class="Header-Slot__actions Slot-Actions">
-        <div class="Slot-Actions__content">
-          <slot name="action" />
+    <div class="container">
+      <h1 class="Header__title">
+        <WarrenLogo />
+        {{ title }}
+      </h1>
+      <div class="Header__slot Header-Slot">
+        <div
+          class="Header-Slot__inside Slot-Inside"
+          :class="{ 'Slot-Inside--invisible': headerClosed }"
+        >
+          <slot />
         </div>
-        <Btn class="Slot-Actions__button" @click="toggleHeaderClose">
-          Status
-          <TriangleIcon
-            class="Slot-Actions__icon"
-            :class="{ 'Slot-Actions__icon--invert': headerClosed }"
-          />
-        </Btn>
+        <div class="Header-Slot__actions Slot-Actions">
+          <div class="Slot-Actions__content">
+            <slot name="action" />
+          </div>
+          <button class="Slot-Actions__button" @click="toggleHeaderClose">
+            {{ action }}
+            <TriangleIcon
+              class="Slot-Actions__icon"
+              :class="{ 'Slot-Actions__icon--invert': headerClosed }"
+            />
+          </button>
+        </div>
       </div>
     </div>
   </header>
@@ -29,20 +31,19 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { Btn } from "@/components/Btn";
 import TriangleIcon from "@/assets/icons/TriangleIcon.svg";
 import WarrenLogo from "@/assets/icons/WarrenLogo.svg";
 
 @Component({
   name: "Header",
   components: {
-    Btn,
     TriangleIcon,
     WarrenLogo,
   },
 })
 export default class Header extends Vue {
   @Prop({ required: true }) title: string;
+  @Prop({ required: true }) action: string;
   public headerClosed = true;
 
   public toggleHeaderClose(): void {
@@ -101,12 +102,18 @@ export default class Header extends Vue {
 .Slot-Actions {
   display: flex;
   position: absolute;
-  bottom: -16px;
-  transform: translate(-50%);
-  left: 50%;
+  margin-left: 20px;
+  bottom: -20px;
+  // bottom: -16px;
+  // transform: translate(-50%);
+  // left: 50%;
 
   &__content {
     margin-right: 10px;
+  }
+
+  &__button {
+    .btn();
   }
 
   &__icon {
@@ -117,5 +124,9 @@ export default class Header extends Vue {
       transform: rotate(60deg);
     }
   }
+}
+
+.container {
+  .container();
 }
 </style>
