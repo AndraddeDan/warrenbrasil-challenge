@@ -50,6 +50,10 @@ export default class Searcher extends Vue {
     max-width: calc(100vw - 150px);
   });;
 
+  label {
+    display: flex;
+  }
+
   svg {
     margin-right: 5px;
     cursor: pointer;
