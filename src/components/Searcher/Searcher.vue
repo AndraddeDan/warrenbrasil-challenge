@@ -36,7 +36,7 @@ export default class Searcher extends Vue {
   height: 35px;
   border-radius: 10px;
   width: 40vw;
-  min-width: 150px;
+  min-width: 200px;
   box-shadow: 2px 2px 2px @shadow-color;
   display: flex;
   align-items: center;

@@ -57,7 +57,7 @@ export default class Header extends Vue {
   background: linear-gradient(0, @secondary-color, @primary-color);
   color: @secondary-text-color;
   max-height: 200px;
-  padding: 10px 30px;
+  padding: 10px 10px 20px 10px;
   transition: all 1s;
 
   &--closed {
@@ -67,7 +67,7 @@ export default class Header extends Vue {
 
   &__title {
     font-weight: 100;
-    margin: 0;
+    margin: 0 0 0 20px;
     display: flex;
     align-items: center;
 
