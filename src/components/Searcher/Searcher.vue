@@ -33,7 +33,7 @@ export default class Searcher extends Vue {
 
 <style lang="less" scoped>
 .Searcher {
-  height: 35px;
+  height: 40px;
   border-radius: 10px;
   width: 40vw;
   min-width: 200px;
