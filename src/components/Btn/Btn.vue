@@ -19,10 +19,17 @@ export default class Btn extends Vue {
 <style scoped lang="less">
 .Btn {
   padding: 5px 10px;
+  min-height: 35px;
   cursor: pointer;
   border: none;
-  background: white;
+  background: @primary-text-color;
+  color: @secondary-text-color;
+  text-transform: lowercase;
   box-shadow: 2px 2px 2px @shadow-color;
-  border-radius: 5px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: @font-family;
 }
 </style>
