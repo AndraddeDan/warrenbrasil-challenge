@@ -1,25 +1,22 @@
 <template>
   <section class="FilterByStatus">
-    <Btn> Todos </Btn>
-    <Btn
+    <button class="FilterByStatus__button--active">Todos</button>
+    <button
+      class="FilterByStatus__button"
       v-for="(index, status) in Object.keys(TransactionStatus)"
       :key="status"
     >
       {{ TransactionStatus[index] }}
-    </Btn>
+    </button>
   </section>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { Btn } from "@/components/Btn";
 import { TransactionStatus } from "@/models";
 
 @Component({
   name: "FilterByStatus",
-  components: {
-    Btn,
-  },
 })
 export default class FilterByStatus extends Vue {
   public TransactionStatus = TransactionStatus;
@@ -28,18 +25,24 @@ export default class FilterByStatus extends Vue {
 
 <style scoped lang="less">
 .FilterByStatus {
-  height: 60px;
+  height: 65px;
+  padding: 20px 20px 0;
   display: flex;
   align-items: flex-start;
-  justify-content: center;
   flex-wrap: wrap;
   .sm({
+    padding: 10px 0 0;
+    justify-content: center;
     height: 90px;
     margin: 15px;
   });
 
-  button {
-    margin: 5px;
+  &__button {
+    .btn-status();
+
+    &--active {
+      .btn-status(true);
+    }
   }
 }
 </style>
