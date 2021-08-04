@@ -6,15 +6,23 @@
     </h1>
     <div class="Header__slot Header-Slot">
       <div
-        class="Header-Slot__content"
-        :class="{ 'Header-Slot__content--invisible': headerClosed }"
+        class="Header-Slot__inside Slot-Inside"
+        :class="{ 'Slot-Inside--invisible': headerClosed }"
       >
         <slot />
       </div>
-
-      <Btn class="Header-Slot__button" @click="toggleHeaderClose">
-        <FilterIcon />
-      </Btn>
+      <div class="Header-Slot__actions Slot-Actions">
+        <div class="Slot-Actions__content">
+          <slot name="action" />
+        </div>
+        <Btn class="Slot-Actions__button" @click="toggleHeaderClose">
+          Status
+          <TriangleIcon
+            class="Slot-Actions__icon"
+            :class="{ 'Slot-Actions__icon--invert': headerClosed }"
+          />
+        </Btn>
+      </div>
     </div>
   </header>
 </template>
@@ -22,14 +30,14 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { Btn } from "@/components/Btn";
-import FilterIcon from "@/assets/icons/FilterIcon.svg";
+import TriangleIcon from "@/assets/icons/TriangleIcon.svg";
 import WarrenLogo from "@/assets/icons/WarrenLogo.svg";
 
 @Component({
   name: "Header",
   components: {
     Btn,
-    FilterIcon,
+    TriangleIcon,
     WarrenLogo,
   },
 })
@@ -76,21 +84,37 @@ export default class Header extends Vue {
   &-Slot {
     display: flex;
     justify-content: center;
+  }
+}
 
-    &__content {
-      transition: all 1s;
-      transition-delay: 1s;
+.Slot-Inside {
+  transition: all 1s;
+  transition-delay: 1s;
 
-      &--invisible {
-        transition-delay: 0s;
-        opacity: 0;
-        visibility: hidden;
-      }
-    }
+  &--invisible {
+    transition-delay: 0s;
+    opacity: 0;
+    visibility: hidden;
+  }
+}
 
-    &__button {
-      position: absolute;
-      bottom: -12.5px;
+.Slot-Actions {
+  display: flex;
+  position: absolute;
+  bottom: -16px;
+  transform: translate(-50%);
+  left: 50%;
+
+  &__content {
+    margin-right: 10px;
+  }
+
+  &__icon {
+    margin-left: 5px;
+    transition: all 1s;
+
+    &--invert {
+      transform: rotate(60deg);
     }
   }
 }
