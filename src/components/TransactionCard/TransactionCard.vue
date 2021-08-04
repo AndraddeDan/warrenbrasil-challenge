@@ -1,5 +1,5 @@
 <template>
-  <button class="TransactionCard">+</button>
+  <div class="TransactionCard">card</div>
 </template>
 
 <script lang="ts">
@@ -12,15 +12,12 @@ export default class TransactionCard extends Vue {}
 </script>
 
 <style lang="less" scoped>
-.ToggleViewer {
-  background: @contrast-color;
-  color: @secondary-text-color;
-  border-radius: 50%;
+.TransactionCard {
+  background: @auxiliary-color;
+  box-shadow: 5px 5px 19px @shadow-color;
+  border-radius: 20px;
   border: none;
-  width: 50px;
-  height: 50px;
-  position: fixed;
-  bottom: 7vh;
-  right: 5vw;
+  width: 100%;
+  height: 200px;
 }
 </style>

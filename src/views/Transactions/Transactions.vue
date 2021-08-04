@@ -13,7 +13,11 @@
         :date="group.date"
         :key="`GroupByDate-${index}`"
       >
-        card
+        <TransactionCard
+          class="Transactions-List__card"
+          v-for="(transaction, index) in group.list"
+          :key="`TransactionCard-${index}`"
+        />
       </GroupByDate>
     </div>
 
@@ -27,9 +31,10 @@ import { Header } from "@/components/Header";
 import { FilterByStatus } from "@/components/FilterByStatus";
 import { Searcher } from "@/components/Searcher";
 import { ToggleViewer } from "@/components/ToggleViewer";
+import { TransactionCard } from "@/components/TransactionCard";
 import { GroupByDate } from "@/components/GroupByDate";
-import { transactionList } from "@/mock/transaction-list";
 import { Transaction, DateGroup } from "@/models";
+import { transactionList } from "@/mock/transaction-list";
 
 @Component({
   name: "Transactions",
@@ -39,6 +44,7 @@ import { Transaction, DateGroup } from "@/models";
     Searcher,
     ToggleViewer,
     GroupByDate,
+    TransactionCard,
   },
 })
 export default class Transactions extends Vue {
@@ -67,6 +73,13 @@ export default class Transactions extends Vue {
     padding: 10px;
     .container(20px);
     margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__card {
+      margin: 25px 0;
+    }
   }
 }
 </style>
