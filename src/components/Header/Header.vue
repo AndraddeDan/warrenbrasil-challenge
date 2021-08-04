@@ -102,9 +102,8 @@ export default class Header extends Vue {
 .Slot-Actions {
   display: flex;
   position: absolute;
-  bottom: -20px;
+  bottom: -26px;
   .xs({
-    bottom: -16px;
     transform: translate(-50%);
     left: 50%;
   });
