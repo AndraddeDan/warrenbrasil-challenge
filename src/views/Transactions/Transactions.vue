@@ -8,6 +8,8 @@
     </Header>
 
     <div class="Transactions__content Transactions-List">Card Here</div>
+
+    <ToggleViewer />
   </div>
 </template>
 
@@ -16,6 +18,7 @@ import { Component, Vue } from "vue-property-decorator";
 import { Header } from "@/components/Header";
 import { FilterByStatus } from "@/components/FilterByStatus";
 import { Searcher } from "@/components/Searcher";
+import { ToggleViewer } from "@/components/ToggleViewer";
 
 @Component({
   name: "Transactions",
@@ -23,6 +26,7 @@ import { Searcher } from "@/components/Searcher";
     Header,
     FilterByStatus,
     Searcher,
+    ToggleViewer,
   },
 })
 export default class Transactions extends Vue {
