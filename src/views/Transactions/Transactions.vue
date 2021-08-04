@@ -7,7 +7,15 @@
       </template>
     </Header>
 
-    <div class="Transactions__content Transactions-List">Card Here</div>
+    <div class="Transactions__content Transactions-List">
+      <GroupByDate
+        v-for="(group, index) in list"
+        :date="group.date"
+        :key="`GroupByDate-${index}`"
+      >
+        card
+      </GroupByDate>
+    </div>
 
     <ToggleViewer />
   </div>
@@ -19,6 +27,9 @@ import { Header } from "@/components/Header";
 import { FilterByStatus } from "@/components/FilterByStatus";
 import { Searcher } from "@/components/Searcher";
 import { ToggleViewer } from "@/components/ToggleViewer";
+import { GroupByDate } from "@/components/GroupByDate";
+import { transactionList } from "@/mock/transaction-list";
+import { Transaction, DateGroup } from "@/models";
 
 @Component({
   name: "Transactions",
@@ -27,10 +38,26 @@ import { ToggleViewer } from "@/components/ToggleViewer";
     FilterByStatus,
     Searcher,
     ToggleViewer,
+    GroupByDate,
   },
 })
 export default class Transactions extends Vue {
-  public logo = require("@/assets/logo.png");
+  private groupTransactionByDate(list: Transaction[]) {
+    return list.reduce((groupList: DateGroup<Transaction>[], transaction) => {
+      const group = groupList.find((v) => v.date === transaction.date);
+
+      const { date } = transaction;
+      const list = [transaction];
+
+      group ? group.list.push(transaction) : groupList.push({ date, list });
+
+      return groupList;
+    }, []);
+  }
+
+  public get list(): DateGroup<Transaction>[] {
+    return this.groupTransactionByDate(transactionList);
+  }
 }
 </script>
 

@@ -1,14 +1,19 @@
 <template>
-  <button class="GroupByDate">+</button>
+  <div class="GroupByDate">
+    <div>{{ date }}</div>
+    <slot />
+  </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component({
   name: "GroupByDate",
 })
-export default class GroupByDate extends Vue {}
+export default class GroupByDate extends Vue {
+  @Prop({ required: true }) date: Date;
+}
 </script>
 
 <style lang="less" scoped>
