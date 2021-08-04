@@ -58,7 +58,7 @@ export default class Header extends Vue {
   background: linear-gradient(0, @secondary-color, @primary-color);
   color: @secondary-text-color;
   max-height: 200px;
-  padding: 10px 10px 20px 10px;
+  padding: 15px;
   transition: all 1s;
 
   &--closed {
@@ -68,7 +68,7 @@ export default class Header extends Vue {
 
   &__title {
     font-weight: 100;
-    margin: 0 0 0 20px;
+    margin: 0;
     display: flex;
     align-items: center;
 
@@ -102,11 +102,12 @@ export default class Header extends Vue {
 .Slot-Actions {
   display: flex;
   position: absolute;
-  margin-left: 20px;
   bottom: -20px;
-  // bottom: -16px;
-  // transform: translate(-50%);
-  // left: 50%;
+  .xs({
+    bottom: -16px;
+    transform: translate(-50%);
+    left: 50%;
+  });
 
   &__content {
     margin-right: 10px;

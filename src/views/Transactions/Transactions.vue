@@ -1,11 +1,13 @@
 <template>
   <div class="Transactions">
-    <Header title="Transações">
+    <Header title="Transações" action="Status">
       <FilterByStatus />
       <template v-slot:action>
         <Searcher placeholder="Busque pelo título" />
       </template>
     </Header>
+
+    <div class="Transactions__content Transactions-List">Card Here</div>
   </div>
 </template>
 
@@ -27,3 +29,13 @@ export default class Transactions extends Vue {
   public logo = require("@/assets/logo.png");
 }
 </script>
+
+<style lang="less" scoped>
+.Transactions {
+  &-List {
+    padding: 10px;
+    .container(20px);
+    margin-top: 40px;
+  }
+}
+</style>

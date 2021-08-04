@@ -26,7 +26,7 @@ export default class FilterByStatus extends Vue {
 <style scoped lang="less">
 .FilterByStatus {
   height: 65px;
-  padding: 20px 20px 0;
+  padding: 20px 0px 0;
   display: flex;
   align-items: flex-start;
   flex-wrap: wrap;

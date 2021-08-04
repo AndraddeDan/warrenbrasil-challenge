@@ -1,6 +1,9 @@
-.container {
+.container(@padding-sm: 10px) {
   margin: 0 auto;
-  max-width: 800px;
+  max-width: @screen-md-max;
+  .sm ({
+    padding: @padding-sm;
+  })
 }
 
 .btn {

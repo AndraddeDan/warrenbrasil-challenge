@@ -35,7 +35,8 @@ export default class Searcher extends Vue {
 .Searcher {
   height: 40px;
   border-radius: 10px;
-  width: 40vw;
+  width: @screen-md-max - 105px;
+  max-width: @screen-md-max;
   min-width: 200px;
   box-shadow: 2px 2px 2px @shadow-color;
   display: flex;
@@ -50,6 +51,8 @@ export default class Searcher extends Vue {
 
   &__input {
     width: calc(100% - 35px);
+    height: 100%;
+    outline: none;
     background: transparent;
     border: none;
     border-radius: 10px;
