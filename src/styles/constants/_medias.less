@@ -1,0 +1,59 @@
+/* VARS */
+// Small smartphones (portrait view)
+@screen-xs-max: 420px;
+
+// Small tablets and large smartphones (landscape view)
+@screen-sm-max: 576px;
+
+// Small tablets (portrait view)
+@screen-md-max: 768px;
+
+// Tablets and small desktops
+@screen-lg-max: 992px;
+
+// Large tablets and desktops
+@screen-xl-max: 1200px;
+
+/* MIXINS */
+
+// Extra small devices
+.xs(@content) {
+   @media (max-width: @screen-xs-max) {
+      @content();
+   }
+}
+
+// Small devices
+.sm(@content) {
+   @media (max-width: @screen-sm-max) {
+      @content();
+   }
+}
+
+// Medium devices
+.md(@content) {
+   @media (max-width: @screen-md-max) {
+      @content();
+   }
+}
+
+// Large devices
+.lg(@content) {
+   @media (max-width: @screen-lg-max) {
+      @content();
+   }
+}
+
+// Extra large devices
+.xl(@content) {
+   @media (max-width: @screen-xl-max) {
+      @content();
+  }
+}
+
+// Custom devices
+.rwd(@screen, @content) {
+   @media (max-width: @screen) {
+       @content();
+   }
+}
