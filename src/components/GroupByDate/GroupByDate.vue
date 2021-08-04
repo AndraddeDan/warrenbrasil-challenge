@@ -1,31 +1,36 @@
 <template>
   <div class="GroupByDate">
-    <div>{{ date }}</div>
-    <slot />
+    <div class="GroupByDate__date">{{ DateUtils.toString(date) }}</div>
+    <div class="GroupByDate__group">
+      <slot />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
+import { DateUtils } from "@/utils";
 
 @Component({
   name: "GroupByDate",
 })
 export default class GroupByDate extends Vue {
   @Prop({ required: true }) date: Date;
+
+  public DateUtils = DateUtils;
 }
 </script>
 
 <style lang="less" scoped>
-.ToggleViewer {
-  background: @contrast-color;
-  color: @secondary-text-color;
-  border-radius: 50%;
-  border: none;
-  width: 50px;
-  height: 50px;
-  position: fixed;
-  bottom: 7vh;
-  right: 5vw;
+.GroupByDate {
+  width: 100%;
+
+  &__date {
+    margin-bottom: 10px;
+  }
+
+  &__group {
+    margin-bottom: 40px;
+  }
 }
 </style>
