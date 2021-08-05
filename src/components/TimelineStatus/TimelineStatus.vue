@@ -1,9 +1,11 @@
 <template>
   <section class="TimelineStatus">
-    <div
-      class="TimelineStatus__line"
-      :class="`TimelineStatus__line--${modifier}`"
-    />
+    <div class="TimelineStatus__line TimelineStatus-Line">
+      <div
+        class="TimelineStatus-Line__bar"
+        :class="`TimelineStatus-Line__bar--${modifier}`"
+      />
+    </div>
     <div class="TimelineStatus__status">
       <span>Solicitada</span>
       <span>Processando</span>
@@ -55,12 +57,26 @@ export default class TimelineStatus extends Vue {
   align-items: flex-start;
   justify-content: center;
 
-  &__line {
+  &__status {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.TimelineStatus-Line {
+  width: 100%;
+  background: @no-data-color;
+  height: 10px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+
+  &__bar {
     border-radius: 10px;
     width: 0%;
-    height: 10px;
+    height: 100%;
     background: @primary-color;
-    margin-bottom: 20px;
     transition: all 1s;
     position: relative;
 
@@ -87,13 +103,6 @@ export default class TimelineStatus extends Vue {
     &--CONCLUIDA {
       width: 100%;
     }
-  }
-
-  &__status {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
   }
 }
 </style>
