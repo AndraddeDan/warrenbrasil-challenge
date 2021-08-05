@@ -1,6 +1,9 @@
 .container(@padding-sm: 10px) {
   margin: 0 auto;
   max-width: @screen-md-max;
+  .lg({
+    max-width: @screen-sm-max;
+  });
   .sm ({
     padding: @padding-sm;
   })
@@ -39,4 +42,11 @@
     background: @secondary-text-color;
     color: @secondary-color;
   }
+}
+
+.transaction-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr .8fr 1.2fr;
+  column-gap: 20px;
+  padding: 15px;
 }
