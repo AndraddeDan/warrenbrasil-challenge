@@ -58,11 +58,14 @@ export default class TransacionResume extends Vue {
   &__header {
     width: 100%;
     height: @header-size;
+    padding: 10px;
+    box-sizing: border-box;
     display: flex;
     justify-content: center;
     align-items: center;
 
     h1 {
+      text-align: center;
       margin: 30px 0 0;
       font-weight: 100;
     }

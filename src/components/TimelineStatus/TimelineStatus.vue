@@ -3,7 +3,7 @@
     <div class="TimelineStatus__line TimelineStatus-Line">
       <div
         class="TimelineStatus-Line__bar"
-        :class="`TimelineStatus-Line__bar--${modifier}`"
+        :class="modifier.length && `TimelineStatus-Line__bar--${modifier}`"
       />
     </div>
     <div class="TimelineStatus__status">
@@ -62,6 +62,7 @@ export default class TimelineStatus extends Vue {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    .sm({ font-size: 0.7em });
   }
 }
 
