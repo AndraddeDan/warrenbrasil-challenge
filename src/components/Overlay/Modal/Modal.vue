@@ -66,13 +66,14 @@ export default class Modal extends Vue {
     align-items: center;
     position: absolute;
     transform: rotate(45deg) scale(2);
+    transition: all 1s;
+    border-radius: 50%;
     top: 20px;
     right: 25px;
     cursor: pointer;
 
     &:hover {
       background: @shadow-color;
-      border-radius: 50%;
     }
   }
 

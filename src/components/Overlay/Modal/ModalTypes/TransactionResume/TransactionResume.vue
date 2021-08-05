@@ -1,11 +1,11 @@
 <template>
   <div class="TransacionResume">
     <div class="TransacionResume__header">
-      <h1>Detalhes</h1>
+      <h1>Detalhes da Transação</h1>
     </div>
     <div class="TransacionResume__body TransacionResume-Body">
       <div class="TransacionResume-Body__timeline">
-        <TimelineStatus />
+        <TimelineStatus :status="transaction.status" />
       </div>
       <div class="TransacionResume-Body__details">
         <div class="TransacionResume-Body__details-from Details-From">
@@ -46,7 +46,7 @@ export default class TransacionResume extends Vue {
 </script>
 
 <style lang="less" scoped>
-@header-size: 50px;
+@header-size: 80px;
 
 .TransacionResume {
   width: 70vw;
@@ -63,9 +63,8 @@ export default class TransacionResume extends Vue {
     align-items: center;
 
     h1 {
-      margin: 0;
+      margin: 30px 0 0;
       font-weight: 100;
-      margin-top: 10px;
     }
   }
 }
@@ -75,10 +74,15 @@ export default class TransacionResume extends Vue {
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
 
-  &__details {
+  &__timeline {
+    margin-bottom: 40px;
+  }
+
+  &__details,
+  &__timeline {
     width: 80%;
   }
 }
