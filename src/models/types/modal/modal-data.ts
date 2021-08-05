@@ -1,7 +1,4 @@
+import { OverlayInterface } from "../overlay/overlay-inteface";
 import { ModalTypes } from "./modal-types";
 
-export interface ModalData {
-  closable: boolean;
-  component: ModalTypes;
-  props?: any;
-}
+export type ModalData = OverlayInterface<ModalTypes>;
