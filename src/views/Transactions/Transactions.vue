@@ -92,6 +92,9 @@ export default class Transactions extends Vue {
       width: 100%;
       border-bottom: 1px solid @contrast-color;
       margin-bottom: 20px;
+      .sm({
+        display: none;
+      });
     }
 
     &__card {

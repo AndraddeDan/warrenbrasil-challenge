@@ -31,8 +31,9 @@ export default class FilterByStatus extends Vue {
   align-items: flex-start;
   flex-wrap: wrap;
   .sm({
-    padding: 10px 0 0;
+    padding: 0;
     justify-content: center;
+    align-items: center;
     height: 90px;
     margin: 15px;
   });

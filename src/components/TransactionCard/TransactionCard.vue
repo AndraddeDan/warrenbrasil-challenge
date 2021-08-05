@@ -1,15 +1,11 @@
 <template>
   <div class="TransactionCard" v-on="$listeners">
-    <div>
-      {{ transaction.title }}
-    </div>
-    <div>
+    <div class="TransactionCard__title">{{ transaction.title }}</div>
+    <div class="TransactionCard__description">
       {{ transaction.description }}
     </div>
-    <div>
-      {{ transaction.status }}
-    </div>
-    <div>R$ {{ transaction.amount }}</div>
+    <div class="TransactionCard__status">{{ transaction.status }}</div>
+    <div class="TransactionCard__amount">R$ {{ transaction.amount }}</div>
   </div>
 </template>
 
@@ -37,6 +33,17 @@ export default class TransactionCard extends Vue {
   .transaction-grid();
   background-position: center;
   transition: background 1s;
+  .sm({
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas:
+      "title title amount"
+      "status status status"
+      "description description description"
+      ;
+    grid-template-rows: 1fr 1fr 1fr;
+    row-gap: 20px;
+    padding: 15px;
+  });
 
   &:hover {
     background: @auxiliary-color
@@ -47,6 +54,22 @@ export default class TransactionCard extends Vue {
     background-color: fade(@shadow-color, 5%);
     background-size: 100%;
     transition: background 0s;
+  }
+
+  &__title {
+    .sm({ grid-area: title; });
+  }
+
+  &__description {
+    .sm({ grid-area: description; });
+  }
+
+  &__status {
+    .sm({ grid-area: status; });
+  }
+
+  &__amount {
+    .sm({ grid-area: amount; });
   }
 }
 </style>
