@@ -8,6 +8,12 @@
     </Header>
 
     <div class="Transactions__content Transactions-List">
+      <div class="Transactions-List__header">
+        <span>Título</span>
+        <span>Descrição</span>
+        <span>Status</span>
+        <span>Valor</span>
+      </div>
       <GroupByDate
         v-for="(group, index) in list"
         :date="group.date"
@@ -17,6 +23,7 @@
           class="Transactions-List__card"
           v-for="(transaction, index) in group.list"
           :key="`TransactionCard-${index}`"
+          :transaction="transaction"
         />
       </GroupByDate>
     </div>
@@ -76,6 +83,16 @@ export default class Transactions extends Vue {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    &__header {
+      .transaction-grid();
+      box-sizing: border-box;
+      text-transform: uppercase;
+      justify-content: space-around;
+      width: 100%;
+      border-bottom: 1px solid @contrast-color;
+      margin-bottom: 20px;
+    }
 
     &__card {
       margin: 25px 0;
