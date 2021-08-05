@@ -7,7 +7,7 @@
       </template>
     </Header>
 
-    <div class="Transactions__content Transactions-List">
+    <main class="Transactions__content Transactions-List">
       <div class="Transactions-List__header">
         <span>Título</span>
         <span>Descrição</span>
@@ -24,9 +24,10 @@
           v-for="(transaction, index) in group.list"
           :key="`TransactionCard-${index}`"
           :transaction="transaction"
+          @click="openModal"
         />
       </GroupByDate>
-    </div>
+    </main>
 
     <ToggleViewer />
   </div>
@@ -40,8 +41,9 @@ import { Searcher } from "@/components/Searcher";
 import { ToggleViewer } from "@/components/ToggleViewer";
 import { TransactionCard } from "@/components/TransactionCard";
 import { GroupByDate } from "@/components/GroupByDate";
-import { Transaction, DateGroup } from "@/models";
+import { Transaction, DateGroup, ModalData, ModalTypes } from "@/models";
 import { transactionList } from "@/mock/transaction-list";
+import { ModalService } from "@/services";
 
 @Component({
   name: "Transactions",
@@ -70,6 +72,15 @@ export default class Transactions extends Vue {
 
   public get list(): DateGroup<Transaction>[] {
     return this.groupTransactionByDate(transactionList);
+  }
+
+  public openModal(): void {
+    const modalData: ModalData = {
+      closable: true,
+      component: ModalTypes.TRANSACTION_RESUME,
+    };
+
+    ModalService.openModal(modalData);
   }
 }
 </script>
