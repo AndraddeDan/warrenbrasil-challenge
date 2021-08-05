@@ -1,8 +1,8 @@
 import { OverlayContent } from "./overlay-content";
 
-export interface OverlayData<T> {
+export interface OverlayData<T, P> {
   closable: boolean;
   component: T;
-  props?: any;
+  props?: P | null;
   content: OverlayContent;
 }

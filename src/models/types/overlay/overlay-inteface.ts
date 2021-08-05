@@ -1,3 +1,3 @@
 import { OverlayData } from "./overlay-data";
 
-export type OverlayInterface<T> = Omit<OverlayData<T>, "content">;
+export type OverlayInterface<T, P> = Omit<OverlayData<T, P>, "content">;

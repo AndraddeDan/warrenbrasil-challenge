@@ -35,9 +35,9 @@ type CommonOptions = ModalTypes;
     Modal,
   },
 })
-export default class Overlay extends Vue {
+export default class Overlay<P> extends Vue {
   public component: VueConstructor | null = null;
-  public componentProps: any | null = null;
+  public componentProps: P | null = null;
   public closable = true;
   public content: VueConstructor | null = null;
 
@@ -73,13 +73,11 @@ export default class Overlay extends Vue {
     component,
     closable = true,
     props,
-  }: OverlayData<T>): void {
+  }: OverlayData<T, P>): void {
     this.closable = closable;
     this.content = OverlayFactory.construct(content);
     this.component = this.construct<T>()[content](component);
-    this.componentProps = props;
-
-    if (props?.closable) this.closable = props.closable;
+    if (props) this.componentProps = props;
   }
 
   public close(): void {
