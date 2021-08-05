@@ -4,7 +4,9 @@
       <h1>Detalhes</h1>
     </div>
     <div class="TransacionResume__body TransacionResume-Body">
-      <div class="TransacionResume-Body__timeline"></div>
+      <div class="TransacionResume-Body__timeline">
+        <TimelineStatus />
+      </div>
       <div class="TransacionResume-Body__details">
         <div class="TransacionResume-Body__details-from Details-From">
           <h2>Transferindo de</h2>
@@ -30,9 +32,13 @@
 <script lang="ts">
 import { Transaction } from "@/models";
 import { Component, Prop, Vue } from "vue-property-decorator";
+import { TimelineStatus } from "@/components/TimelineStatus";
 
 @Component({
   name: "TransacionResume",
+  components: {
+    TimelineStatus,
+  },
 })
 export default class TransacionResume extends Vue {
   @Prop({ required: true }) public transaction: Transaction;
@@ -68,7 +74,8 @@ export default class TransacionResume extends Vue {
   height: calc(100% - @header-size);
   width: 100%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-around;
   align-items: center;
 
   &__details {
