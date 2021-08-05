@@ -59,15 +59,25 @@ export default class Modal extends Vue {
   overflow: hidden;
 
   &__close {
-    color: black;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: absolute;
-    top: 10px;
-    right: 10px;
+    transform: rotate(45deg) scale(2);
+    top: 20px;
+    right: 25px;
     cursor: pointer;
+
+    &:hover {
+      background: @shadow-color;
+      border-radius: 50%;
+    }
   }
 
   &__body {
-    max-width: 500px;
+    max-width: @modal-max-width;
     max-height: 80vh;
     overflow: auto;
     overscroll-behavior: contain;

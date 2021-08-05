@@ -97,22 +97,7 @@ export default class Overlay<P> extends Vue {
   height: 100%;
   display: grid;
   place-items: center;
-  background: white;
+  background: fade(@contrast-color, 70%);
   z-index: 999;
-
-  ::-webkit-scrollbar {
-    width: 5px;
-
-    &-track {
-      background-color: transparent;
-      padding-right: 5px;
-
-      &-thumb {
-        background-color: gray;
-        border-radius: 5px;
-        cursor: pointer;
-      }
-    }
-  }
 }
 </style>
