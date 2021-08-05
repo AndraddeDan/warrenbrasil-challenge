@@ -2,7 +2,11 @@ import { EventBus } from "@/utils/EventBus";
 import { ModalEvents, ModalData, ModalTypes, OverlayContent } from "@/models";
 
 export const ModalService = {
-  openModal({ component, closable: closable = true, props }: ModalData): void {
+  openModal<P>({
+    component,
+    closable: closable = true,
+    props,
+  }: ModalData<P>): void {
     const content = OverlayContent.MODAL;
     EventBus.$emit(ModalEvents.OPEN, { component, closable, props, content });
   },
