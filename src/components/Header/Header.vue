@@ -1,6 +1,6 @@
 <template>
-  <header class="Header" :class="{ 'Header--closed': headerClosed }">
-    <div class="container">
+  <header class="wrapper">
+    <div class="Header" :class="{ 'Header--closed': headerClosed }">
       <h1 class="Header__title">
         <WarrenLogo />
         {{ title }}
@@ -12,7 +12,10 @@
         >
           <slot />
         </div>
-        <div class="Header-Slot__actions Slot-Actions">
+        <div
+          class="Header-Slot__actions Slot-Actions"
+          :class="{ 'Slot-Actions--closed': headerClosed }"
+        >
           <div class="Slot-Actions__content">
             <slot name="action" />
           </div>
@@ -53,6 +56,10 @@ export default class Header extends Vue {
 </script>
 
 <style scoped lang="less">
+.wrapper {
+  background: linear-gradient(0, @secondary-color, @primary-color);
+}
+
 .Header {
   position: relative;
   background: linear-gradient(0, @secondary-color, @primary-color);
@@ -60,10 +67,11 @@ export default class Header extends Vue {
   max-height: 200px;
   padding: 15px;
   transition: all 1s;
+  .container();
 
   &--closed {
     transition-delay: 0.5s;
-    max-height: 50px;
+    max-height: 60px;
   }
 
   &__title {
@@ -102,14 +110,19 @@ export default class Header extends Vue {
 .Slot-Actions {
   display: flex;
   position: absolute;
-  bottom: -26px;
+  bottom: -46px;
+  width: 100%;
+  right: 0;
+  box-sizing: border-box;
+  padding: 20px;
   .xs({
     transform: translate(-50%);
     left: 50%;
   });
 
   &__content {
-    margin-right: 10px;
+    padding-right: 10px;
+    width: 100%;
   }
 
   &__button {
@@ -124,9 +137,5 @@ export default class Header extends Vue {
       transform: rotate(60deg);
     }
   }
-}
-
-.container {
-  .container();
 }
 </style>

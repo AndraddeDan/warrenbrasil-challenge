@@ -35,20 +35,13 @@ export default class Searcher extends Vue {
 .Searcher {
   height: 40px;
   border-radius: 10px;
-  width: 100vw;
-  max-width: calc(@screen-md-max - 105px);
   min-width: 200px;
   box-shadow: 2px 2px 2px @shadow-color;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
-  padding-left: 15px;
+  padding-left: 10px;
   background: @auxiliary-color;
-  .md ({
-    max-width: calc(100vw - 125px);
-  });;
-  .sm ({
-    max-width: calc(100vw - 150px);
-  });;
 
   label {
     display: flex;
