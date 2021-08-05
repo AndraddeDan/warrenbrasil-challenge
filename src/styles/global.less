@@ -1,9 +1,9 @@
-@import (css)
-  url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700");
-@import "./constants/_variables";
+@import "./main.less";
+@import (css) url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700");
 
 body {
   min-height: 100vh;
-  background-color: fade(#efefef, 50%);
   font-family: @font-family, sans-serif;
+  // background-color: fade(@color-gallery, 30%);
+  background-color: @auxiliary-color;
 }

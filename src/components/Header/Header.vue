@@ -58,6 +58,7 @@ export default class Header extends Vue {
 <style scoped lang="less">
 .wrapper {
   background: linear-gradient(0, @secondary-color, @primary-color);
+  border-radius: 0 0 50px 50px;
 }
 
 .Header {

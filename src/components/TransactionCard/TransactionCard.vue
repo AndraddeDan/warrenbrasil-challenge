@@ -23,8 +23,8 @@ export default class TransactionCard extends Vue {
 
 <style lang="less" scoped>
 .TransactionCard {
-  background: @auxiliary-color;
-  box-shadow: 7px 7px 15px @shadow-color;
+  background: @card-color;
+  // box-shadow: 7px 7px 15px @shadow-color;
   border-radius: 10px;
   box-sizing: border-box;
   cursor: pointer;
@@ -46,12 +46,12 @@ export default class TransactionCard extends Vue {
   });
 
   &:hover {
-    background: @auxiliary-color
-      radial-gradient(circle, transparent 1%, @auxiliary-color 1%) center/15000%;
+    background: @card-color
+      radial-gradient(circle, transparent 1%, @card-color 1%) center/15000%;
   }
 
   &:active {
-    background-color: fade(@shadow-color, 5%);
+    background-color: fade(@auxiliary-color, 5%);
     background-size: 100%;
     transition: background 0s;
   }
