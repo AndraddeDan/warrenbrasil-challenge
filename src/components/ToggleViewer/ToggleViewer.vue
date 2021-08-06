@@ -1,12 +1,13 @@
 <template>
-  <button class="ToggleViewer" @click="opened = !opened">
-    <OpenedEyeIcon v-if="opened" />
+  <button class="ToggleViewer" @click="setCanShowAmount(!canShowAmount)">
+    <OpenedEyeIcon v-if="canShowAmount" />
     <ClosedEyeIcon v-else />
   </button>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { mapActions, mapGetters } from "vuex";
 import ClosedEyeIcon from "@/assets/icons/ClosedEyeIcon.svg";
 import OpenedEyeIcon from "@/assets/icons/OpenedEyeIcon.svg";
 
@@ -16,9 +17,21 @@ import OpenedEyeIcon from "@/assets/icons/OpenedEyeIcon.svg";
     ClosedEyeIcon,
     OpenedEyeIcon,
   },
+  computed: {
+    ...mapGetters("transactions", {
+      list: "transactionListGroupedByDate",
+      canShowAmount: "canShowAmount",
+    }),
+  },
+  methods: {
+    ...mapActions("transactions", {
+      setCanShowAmount: "setCanShowAmount",
+    }),
+  },
 })
 export default class ToggleViewer extends Vue {
-  public opened = false;
+  public canShowAmount!: boolean;
+  public setSearchByTitle!: (title: string) => void;
 }
 </script>
 

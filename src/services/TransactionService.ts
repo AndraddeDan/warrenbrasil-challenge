@@ -16,16 +16,24 @@ const transform = (transaction: TransactionAPI) => ({
 export const TransactionService = {
   getTransactionList(): Promise<Transaction[]> {
     return new Promise((resolve, reject) => {
-      const url = buildApiUrl(ApiUrls.getTransactionList());
-
-      httpClient
-        .get(url)
-        .then((response: AxiosResponse<TransactionAPI[]>) =>
-          resolve(response.data.map((transaction) => transform(transaction)))
-        )
+      RequestSimulator(false, 3000, transactionList)
+        .then((res) => resolve(res.map((t) => transform(t))))
         .catch((err: AxiosError) => reject(err));
     });
   },
+
+  // getTransactionList(): Promise<Transaction[]> {
+  //   return new Promise((resolve, reject) => {
+  //     const url = buildApiUrl(ApiUrls.getTransactionList());
+
+  //     httpClient
+  //       .get(url)
+  //       .then((response: AxiosResponse<TransactionAPI[]>) =>
+  //         resolve(response.data.map((transaction) => transform(transaction)))
+  //       )
+  //       .catch((err: AxiosError) => reject(err));
+  //   });
+  // },
 
   getTransactionById(id: number): Promise<Transaction> {
     return new Promise((resolve, reject) => {

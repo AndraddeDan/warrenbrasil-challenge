@@ -7,7 +7,8 @@ import { TransactionCommits } from "./transaction-commits";
 import { RootState } from "../root-state";
 import { groupTransactionByDate, matchTransactionByTitle } from "./handlers";
 
-const { SET_LIST, SET_FETCH_LIST, SET_SEARCH_BY_TITLE } = TransactionCommits;
+const { SET_LIST, SET_FETCH_LIST, SET_SEARCH_BY_TITLE, SET_CAN_SHOW_AMOUNT } =
+  TransactionCommits;
 
 export const transactions: Module<TransactionState, RootState> = {
   namespaced: true,
@@ -34,7 +35,7 @@ export const transactions: Module<TransactionState, RootState> = {
     transactionList: (state: TransactionState) => state.transactionList,
     searchedTitle: (state: TransactionState) => state.searchedTitle,
     isFetchingList: (state: TransactionState) => state.isFetchingList,
-    isFetchingById: (state: TransactionState) => state.isFetchingById,
+    canShowAmount: (state: TransactionState) => state.canShowAmount,
   },
   mutations: {
     SET_LIST(state: TransactionState, list: Transaction[]) {
@@ -45,6 +46,9 @@ export const transactions: Module<TransactionState, RootState> = {
     },
     SET_SEARCH_BY_TITLE(state: TransactionState, searchedTitle: string) {
       state.searchedTitle = searchedTitle;
+    },
+    SET_CAN_SHOW_AMOUNT(state: TransactionState, canShow: boolean) {
+      state.canShowAmount = canShow;
     },
   },
   actions: {
@@ -62,6 +66,9 @@ export const transactions: Module<TransactionState, RootState> = {
     },
     setSearchByTitle({ commit }, title: string): void {
       commit(SET_SEARCH_BY_TITLE, title);
+    },
+    setCanShowAmount({ commit }, canShow: boolean): void {
+      commit(SET_CAN_SHOW_AMOUNT, canShow);
     },
   },
 };
