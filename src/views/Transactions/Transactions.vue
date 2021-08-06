@@ -3,14 +3,14 @@
     <Header title="Transações" action="Status">
       <FilterByStatus />
       <template v-slot:action>
-        <Searcher placeholder="Busque pelo título" />
+        <Searcher v-model="search" placeholder="Busque pelo título" />
       </template>
     </Header>
 
     <main class="Transactions__content Transactions-List">
       <TransactionListHeader />
       <GroupByDate
-        v-for="(group, index) in transactionListGroupByDate"
+        v-for="(group, index) in list"
         :date="group.date"
         :key="`GroupByDate-${index}`"
       >
@@ -54,17 +54,29 @@ import { ModalService } from "@/services";
   },
   computed: {
     ...mapGetters("transactions", {
-      transactionListGroupByDate: "transactionListGroupByDate",
+      list: "transactionListGroupedByDate",
+      searchedTitle: "searchedTitle",
     }),
   },
   methods: {
     ...mapActions("transactions", {
-      markAsRead: "markAsRead",
+      setSearchByTitle: "setSearchByTitle",
     }),
   },
 })
 export default class Transactions extends Vue {
-  public transactionListGroupByDate!: DateGroup<Transaction>[];
+  public setSearchByTitle!: (title: string) => void;
+
+  public list!: DateGroup<Transaction>[];
+  public searchedTitle!: string;
+
+  get search(): string {
+    return this.searchedTitle;
+  }
+
+  set search(title: string) {
+    this.setSearchByTitle(title);
+  }
 
   public openModal(transaction: Transaction): void {
     const modalData: ModalData<{ transaction: Transaction }> = {

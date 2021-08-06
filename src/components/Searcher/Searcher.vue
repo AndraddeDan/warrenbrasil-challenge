@@ -7,6 +7,9 @@
       id="searchBy"
       class="Searcher__input"
       type="text"
+      ref="searchInput"
+      :value="value"
+      @input="output"
       :placeholder="placeholder"
     />
   </form>
@@ -27,7 +30,16 @@ import SearchIcon from "@/assets/icons/SearchIcon.svg";
   },
 })
 export default class Searcher extends Vue {
+  $refs!: {
+    searchInput: HTMLInputElement;
+  };
+
   @Prop({}) placeholder: string;
+  @Prop({}) value!: string;
+
+  public output(): void {
+    this.$emit("input", this.$refs.searchInput.value);
+  }
 }
 </script>
 

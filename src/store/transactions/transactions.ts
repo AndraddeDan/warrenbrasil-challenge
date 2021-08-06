@@ -1,52 +1,43 @@
 import { Module } from "vuex";
 import { AxiosError } from "axios";
 import { TransactionService } from "@/services";
-import { DateGroup, Transaction } from "@/models";
+import { Transaction } from "@/models";
 import { TransactionState } from "./transaction-state";
 import { TransactionCommits } from "./transaction-commits";
 import { RootState } from "../root-state";
+import { groupTransactionByDate } from "./handlers";
 
-const { SET_LIST, SET_FETCH_LIST } = TransactionCommits;
-
-const groupTransactionByDate = (
-  list: Transaction[]
-): DateGroup<Transaction>[] => {
-  return list.reduce((groupList: DateGroup<Transaction>[], transaction) => {
-    const group = groupList.find((v) => v.date === transaction.date);
-
-    const { date } = transaction;
-    const list = [transaction];
-
-    group ? group.list.push(transaction) : groupList.push({ date, list });
-
-    return groupList;
-  }, []);
-};
+const { SET_LIST, SET_FETCH_LIST, SET_SEARCH_BY_TITLE } = TransactionCommits;
 
 export const transactions: Module<TransactionState, RootState> = {
   namespaced: true,
   state: {
     transactionList: [],
+    transactionListGroupedByDate: [],
     isFetchingList: false,
     isFetchingById: false,
     canShowAmount: true,
+    selectedStatus: [],
+    searchedTitle: "",
   },
   getters: {
-    transactionListGroupByDate: (state: TransactionState) =>
-      groupTransactionByDate(state.transactionList),
+    transactionListGroupedByDate: (state: TransactionState) =>
+      state.transactionListGroupedByDate,
     transactionList: (state: TransactionState) => state.transactionList,
+    searchedTitle: (state: TransactionState) => state.searchedTitle,
     isFetchingList: (state: TransactionState) => state.isFetchingList,
     isFetchingById: (state: TransactionState) => state.isFetchingById,
   },
   mutations: {
-    SET_LIST(state: TransactionState, { transactionList }: TransactionState) {
-      state.transactionList = transactionList;
+    SET_LIST(state: TransactionState, list: Transaction[]) {
+      state.transactionList = list;
+      state.transactionListGroupedByDate = groupTransactionByDate(list);
     },
-    SET_FETCH_LIST(
-      state: TransactionState,
-      { isFetchingList }: TransactionState
-    ) {
+    SET_FETCH_LIST(state: TransactionState, isFetchingList: boolean) {
       state.isFetchingList = isFetchingList;
+    },
+    SET_SEARCH_BY_TITLE(state: TransactionState, searchedTitle: string) {
+      state.searchedTitle = searchedTitle;
     },
   },
   actions: {
@@ -55,12 +46,15 @@ export const transactions: Module<TransactionState, RootState> = {
       return new Promise((resolve, reject) => {
         TransactionService.getTransactionList()
           .then((transactionList: Transaction[]) => {
-            commit(SET_LIST, { transactionList });
+            commit(SET_LIST, transactionList);
             resolve(transactionList);
           })
           .catch((error: AxiosError) => reject(error))
           .finally(() => commit(SET_FETCH_LIST, false));
       });
+    },
+    setSearchByTitle({ commit }, title: string): void {
+      commit(SET_SEARCH_BY_TITLE, title);
     },
   },
 };
