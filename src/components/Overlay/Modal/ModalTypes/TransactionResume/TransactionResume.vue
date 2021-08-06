@@ -1,7 +1,7 @@
 <template>
   <div class="TransacionResume">
     <div class="TransacionResume__header">
-      <h1>Detalhes da Transação</h1>
+      <h1>{{ transaction.title }}</h1>
     </div>
     <div class="TransacionResume__body TransacionResume-Body">
       <div class="TransacionResume-Body__timeline">
