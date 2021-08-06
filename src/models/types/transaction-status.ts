@@ -1,5 +1,5 @@
 export enum TransactionStatus {
-  CREATED = "SOLICITANDO",
-  PROCESSING = "PROCESSANDO",
-  PROCESSED = "CONCLUIDA",
+  created = "Solicitando",
+  processing = "Processando",
+  processed = "Concluida",
 }
