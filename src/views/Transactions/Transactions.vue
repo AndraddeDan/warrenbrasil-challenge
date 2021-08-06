@@ -28,7 +28,7 @@
       </GroupByDate>
     </main>
 
-    <ToggleViewer />
+    <ToggleViewer :canShow="canShowAmount" @change="setCanShowAmount" />
   </div>
 </template>
 
@@ -67,6 +67,7 @@ import { ModalService } from "@/services";
       list: "transactionListGroupedByDate",
       searchedTitle: "searchedTitle",
       selectedStatus: "selectedStatus",
+      canShowAmount: "canShowAmount",
     }),
   },
   methods: {
@@ -74,10 +75,12 @@ import { ModalService } from "@/services";
       setSearchByTitle: "setSearchByTitle",
       addFilter: "addFilter",
       deleteFilter: "deleteFilter",
+      setCanShowAmount: "setCanShowAmount",
     }),
   },
 })
 export default class Transactions extends Vue {
+  public setCanShowAmount!: (canShow: boolean) => void;
   public setSearchByTitle!: (title: string) => void;
   public setFilter!: (status: TransactionStatus) => void;
   public deleteFilter!: (status: TransactionStatus) => void;
@@ -85,6 +88,7 @@ export default class Transactions extends Vue {
   public list!: DateGroup<Transaction>[];
   public searchedTitle!: string;
   public selectedStatus!: TransactionStatus[];
+  public canShowAmount!: boolean;
 
   get search(): string {
     return this.searchedTitle;
