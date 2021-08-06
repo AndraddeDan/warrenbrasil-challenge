@@ -1,3 +1,6 @@
 export enum TransactionCommits {
   SET_LIST = "SET_LIST",
+  SET_FETCH_LIST = "SET_FETCH_LIST",
+  SET_FETCH_BY_ID = "SET_FETCH_BY_ID",
+  SET_CAN_SHOW_AMOUNT = "SET_CAN_SHOW_AMOUNT",
 }
