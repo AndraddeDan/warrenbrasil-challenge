@@ -1,12 +1,8 @@
 import Vue from "vue";
-import VueRouter, { RouteConfig } from "vue-router";
-import { Transactions } from "@/views/Transactions";
+import VueRouter from "vue-router";
+import { routes } from "./routes";
 
 Vue.use(VueRouter);
-
-const routes: Array<RouteConfig> = [
-  { path: "/", name: "Home", component: Transactions },
-];
 
 const router = new VueRouter({
   mode: "history",
