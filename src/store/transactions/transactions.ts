@@ -33,24 +33,19 @@ export const transactions: Module<TransactionState, RootState> = {
   getters: {
     transactionListGroupedByDate: ({
       transactionList,
-      searchedTitle,
-      selectedStatus,
+      searchedTitle: title,
+      selectedStatus: status,
     }: TransactionState) => {
-      const canFilterByTitle = Boolean(searchedTitle.trim().length);
-      const canFilterBystatus = Boolean(selectedStatus.length);
+      const canFilterByTitle = Boolean(title.trim().length);
+      const canFilterBystatus = Boolean(status.length);
 
       const list = transactionList.filter((t) => {
         if (canFilterByTitle && canFilterBystatus)
-          return matchTransactionByTitleAndStatus(
-            t,
-            selectedStatus,
-            searchedTitle
-          );
-
+          return matchTransactionByTitleAndStatus(t, status, title);
         if (canFilterByTitle && !canFilterBystatus)
-          return matchTransactionByTitle(t, searchedTitle);
+          return matchTransactionByTitle(t, title);
         if (!canFilterByTitle && canFilterBystatus)
-          return matchTransactionByStatus(t, selectedStatus);
+          return matchTransactionByStatus(t, status);
 
         return t;
       });
