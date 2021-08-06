@@ -23,6 +23,7 @@
           v-for="(transaction, index) in group.list"
           :key="`TransactionCard-${index}`"
           :transaction="transaction"
+          :canShowAmount="canShowAmount"
           @click="openModal(transaction)"
         />
       </GroupByDate>
@@ -99,10 +100,13 @@ export default class Transactions extends Vue {
   }
 
   public openModal(transaction: Transaction): void {
-    const modalData: ModalData<{ transaction: Transaction }> = {
+    const modalData: ModalData<{
+      canShowAmount: boolean;
+      transaction: Transaction;
+    }> = {
       closable: true,
       component: ModalTypes.TRANSACTION_RESUME,
-      props: { transaction },
+      props: { canShowAmount: this.canShowAmount, transaction },
     };
 
     ModalService.openModal(modalData);

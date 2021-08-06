@@ -13,7 +13,13 @@
           <hr />
           <div class="Details-From__line">
             <span> {{ transaction.from }} </span>
-            <span> {{ transaction.amount }} </span>
+            <span
+              :class="{
+                'Details-From__line--hide': !canShowAmount,
+              }"
+            >
+              {{ transaction.amount }}
+            </span>
           </div>
         </div>
         <div class="TransacionResume-Body__details-to Details-To">
@@ -21,7 +27,13 @@
           <hr />
           <div class="Details-To__line">
             <span> {{ transaction.to }} </span>
-            <span> {{ transaction.amount }} </span>
+            <span
+              :class="{
+                'Details-To__line--hide': !canShowAmount,
+              }"
+            >
+              {{ transaction.amount }}
+            </span>
           </div>
         </div>
       </div>
@@ -42,6 +54,7 @@ import { TimelineStatus } from "@/components/TimelineStatus";
 })
 export default class TransacionResume extends Vue {
   @Prop({ required: true }) public transaction: Transaction;
+  @Prop({}) public canShowAmount: boolean;
 }
 </script>
 
@@ -96,6 +109,13 @@ export default class TransacionResume extends Vue {
     width: 100%;
     display: flex;
     justify-content: space-between;
+
+    &--hide {
+      background: @shadow-color;
+      color: transparent;
+      border-radius: 10px;
+      max-height: 18px;
+    }
   }
 }
 </style>

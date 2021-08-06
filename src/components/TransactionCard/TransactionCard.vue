@@ -5,7 +5,14 @@
       {{ transaction.description }}
     </div>
     <div class="TransactionCard__status">{{ transaction.status }}</div>
-    <div class="TransactionCard__amount">R$ {{ transaction.amount }}</div>
+    <div
+      class="TransactionCard__amount"
+      :class="{
+        'TransactionCard__amount--hide': !canShowAmount,
+      }"
+    >
+      R$ {{ transaction.amount }}
+    </div>
   </div>
 </template>
 
@@ -18,6 +25,7 @@ import { Transaction } from "@/models";
 })
 export default class TransactionCard extends Vue {
   @Prop({ required: true }) transaction: Transaction;
+  @Prop({ required: true }) canShowAmount: boolean;
 }
 </script>
 
@@ -69,7 +77,15 @@ export default class TransactionCard extends Vue {
   }
 
   &__amount {
+    transition: all 1s;
+    max-height: 18px;
+    border-radius: 10px;
     .sm({ grid-area: amount; });
+
+    &--hide {
+      background: @shadow-color;
+      color: transparent;
+    }
   }
 }
 </style>
