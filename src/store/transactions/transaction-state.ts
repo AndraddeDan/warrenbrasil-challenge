@@ -1,7 +1,7 @@
 import { Transaction } from "@/models";
 
 export interface TransactionState {
-  transactionList: Transaction[] | null;
+  transactionList: Transaction[];
   isFetchingList: boolean;
   isFetchingById: boolean;
   canShowAmount: boolean;

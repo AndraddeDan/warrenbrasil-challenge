@@ -8,14 +8,9 @@
     </Header>
 
     <main class="Transactions__content Transactions-List">
-      <div class="Transactions-List__header">
-        <span>Título</span>
-        <span>Descrição</span>
-        <span>Status</span>
-        <span>Valor</span>
-      </div>
+      <TransactionListHeader />
       <GroupByDate
-        v-for="(group, index) in list"
+        v-for="(group, index) in transactionListGroupByDate"
         :date="group.date"
         :key="`GroupByDate-${index}`"
       >
@@ -35,14 +30,15 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { mapActions, mapGetters } from "vuex";
 import { Header } from "@/components/Header";
 import { FilterByStatus } from "@/components/FilterByStatus";
 import { Searcher } from "@/components/Searcher";
 import { ToggleViewer } from "@/components/ToggleViewer";
 import { TransactionCard } from "@/components/TransactionCard";
+import { TransactionListHeader } from "@/components/TransactionListHeader";
 import { GroupByDate } from "@/components/GroupByDate";
 import { Transaction, DateGroup, ModalData, ModalTypes } from "@/models";
-import { transactionList } from "@/mock/transaction-list";
 import { ModalService } from "@/services";
 
 @Component({
@@ -52,27 +48,23 @@ import { ModalService } from "@/services";
     FilterByStatus,
     Searcher,
     ToggleViewer,
+    TransactionListHeader,
     GroupByDate,
     TransactionCard,
   },
+  computed: {
+    ...mapGetters("transactions", {
+      transactionListGroupByDate: "transactionListGroupByDate",
+    }),
+  },
+  methods: {
+    ...mapActions("transactions", {
+      markAsRead: "markAsRead",
+    }),
+  },
 })
 export default class Transactions extends Vue {
-  private groupTransactionByDate(list: Transaction[]) {
-    return list.reduce((groupList: DateGroup<Transaction>[], transaction) => {
-      const group = groupList.find((v) => v.date === transaction.date);
-
-      const { date } = transaction;
-      const list = [transaction];
-
-      group ? group.list.push(transaction) : groupList.push({ date, list });
-
-      return groupList;
-    }, []);
-  }
-
-  public get list(): DateGroup<Transaction>[] {
-    return this.groupTransactionByDate(transactionList);
-  }
+  public transactionListGroupByDate!: DateGroup<Transaction>[];
 
   public openModal(transaction: Transaction): void {
     const modalData: ModalData<{ transaction: Transaction }> = {
@@ -95,19 +87,6 @@ export default class Transactions extends Vue {
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    &__header {
-      .transaction-grid();
-      box-sizing: border-box;
-      text-transform: uppercase;
-      justify-content: space-around;
-      width: 100%;
-      border-bottom: 1px solid @contrast-color;
-      margin-bottom: 20px;
-      .sm({
-        display: none;
-      });
-    }
 
     &__card {
       margin: 25px 0;
