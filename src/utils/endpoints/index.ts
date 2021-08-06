@@ -24,4 +24,6 @@ export const buildApiUrl = (
   ApiUrl: string,
   queryParams?: QueryParamUrl[]
 ): string =>
-  `${env.apiURL}/${ApiUrl}${queryParams ? buildQueryParams(queryParams) : ""}`;
+  `${env.apiURL}/api/${ApiUrl}${
+    queryParams ? buildQueryParams(queryParams) : ""
+  }`;
