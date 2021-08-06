@@ -44,7 +44,8 @@ export default class TimelineStatus extends Vue {
   }
 
   private setStatusTransition(): void {
-    setTimeout(() => (this.modifier = this.status), 500);
+    const normalize = (str: string) => str.toLowerCase().replace("í", "i");
+    setTimeout(() => (this.modifier = normalize(this.status)), 500);
   }
 }
 </script>
@@ -93,15 +94,15 @@ export default class TimelineStatus extends Vue {
       height: 5px;
     }
 
-    &--SOLICITANDO {
+    &--solicitada {
       width: 15px;
     }
 
-    &--PROCESSANDO {
+    &--processando {
       width: 50%;
     }
 
-    &--CONCLUIDA {
+    &--concluida {
       width: 100%;
     }
   }
