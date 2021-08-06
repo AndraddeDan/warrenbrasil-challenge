@@ -1,3 +1,3 @@
 export enum TransactionCommits {
-  SET_TERMS = "SET_TERMS",
+  SET_LIST = "SET_LIST",
 }

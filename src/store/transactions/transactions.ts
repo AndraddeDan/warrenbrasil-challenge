@@ -6,7 +6,7 @@ import { TransactionState } from "./transaction-state";
 import { TransactionCommits } from "./transaction-commits";
 import { RootState } from "../root-state";
 
-const { SET_TERMS } = TransactionCommits;
+const { SET_LIST } = TransactionCommits;
 
 export const transactions: Module<TransactionState, RootState> = {
   namespaced: true,
@@ -17,7 +17,7 @@ export const transactions: Module<TransactionState, RootState> = {
     transactionList: (state: TransactionState) => state.transactionList,
   },
   mutations: {
-    SET_TERMS(state: TransactionState, { transactionList }: TransactionState) {
+    SET_LIST(state: TransactionState, { transactionList }: TransactionState) {
       state.transactionList = transactionList;
     },
   },
@@ -26,7 +26,7 @@ export const transactions: Module<TransactionState, RootState> = {
       return new Promise((resolve, reject) => {
         TransactionService.getTransactionList()
           .then((transactionList: Transaction[]) => {
-            commit(SET_TERMS, { transactionList });
+            commit(SET_LIST, { transactionList });
             resolve(transactionList);
           })
           .catch((error: AxiosError) => reject(error));
