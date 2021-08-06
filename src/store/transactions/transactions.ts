@@ -5,7 +5,7 @@ import { Transaction } from "@/models";
 import { TransactionState } from "./transaction-state";
 import { TransactionCommits } from "./transaction-commits";
 import { RootState } from "../root-state";
-import { groupTransactionByDate } from "./handlers";
+import { groupTransactionByDate, matchTransactionByTitle } from "./handlers";
 
 const { SET_LIST, SET_FETCH_LIST, SET_SEARCH_BY_TITLE } = TransactionCommits;
 
@@ -13,16 +13,24 @@ export const transactions: Module<TransactionState, RootState> = {
   namespaced: true,
   state: {
     transactionList: [],
-    transactionListGroupedByDate: [],
     isFetchingList: false,
-    isFetchingById: false,
     canShowAmount: true,
     selectedStatus: [],
     searchedTitle: "",
   },
   getters: {
-    transactionListGroupedByDate: (state: TransactionState) =>
-      state.transactionListGroupedByDate,
+    transactionListGroupedByDate: ({
+      transactionList,
+      searchedTitle,
+    }: TransactionState) => {
+      const list = searchedTitle.trim().length
+        ? transactionList.filter((t) =>
+            matchTransactionByTitle(t, searchedTitle)
+          )
+        : transactionList;
+
+      return groupTransactionByDate(list);
+    },
     transactionList: (state: TransactionState) => state.transactionList,
     searchedTitle: (state: TransactionState) => state.searchedTitle,
     isFetchingList: (state: TransactionState) => state.isFetchingList,
@@ -31,7 +39,6 @@ export const transactions: Module<TransactionState, RootState> = {
   mutations: {
     SET_LIST(state: TransactionState, list: Transaction[]) {
       state.transactionList = list;
-      state.transactionListGroupedByDate = groupTransactionByDate(list);
     },
     SET_FETCH_LIST(state: TransactionState, isFetchingList: boolean) {
       state.isFetchingList = isFetchingList;

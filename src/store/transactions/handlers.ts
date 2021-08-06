@@ -14,3 +14,15 @@ export const groupTransactionByDate = (
     return groupList;
   }, []);
 };
+
+export const normalizeToMatch = (str: string): string =>
+  str
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+
+export const matchTransactionByTitle = (
+  transaction: Transaction,
+  text: string
+): boolean =>
+  normalizeToMatch(transaction.title).includes(normalizeToMatch(text));
