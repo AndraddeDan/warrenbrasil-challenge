@@ -1,10 +1,31 @@
 <template>
   <section class="FilterByStatus">
-    <button class="FilterByStatus__button--active">Todos</button>
     <button
       class="FilterByStatus__button"
+      :class="{
+        'FilterByStatus__button--active': !enabledFilters.length,
+      }"
+      @click="output(FilterEvents.DISABLE, Object.values(TransactionStatus))"
+    >
+      Todos
+    </button>
+    <button
+      class="FilterByStatus__button"
+      :class="{
+        'FilterByStatus__button--active': enabledFilters.includes(
+          TransactionStatus[index]
+        ),
+      }"
       v-for="(index, status) in Object.keys(TransactionStatus)"
-      :key="status"
+      :key="`FilterByStatus-${status}`"
+      @click="
+        output(
+          enabledFilters.includes(TransactionStatus[index])
+            ? FilterEvents.DISABLE
+            : FilterEvents.ENABLE,
+          [TransactionStatus[index]]
+        )
+      "
     >
       {{ TransactionStatus[index] }}
     </button>
@@ -12,14 +33,25 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import { TransactionStatus } from "@/models";
+import { Component, Prop, Vue } from "vue-property-decorator";
+import { TransactionStatus, FilterEvents } from "@/models";
 
 @Component({
   name: "FilterByStatus",
 })
 export default class FilterByStatus extends Vue {
+  @Prop({ default: () => [] }) enabledFilters: TransactionStatus[];
   public TransactionStatus = TransactionStatus;
+  public FilterEvents = FilterEvents;
+
+  public output(filterEvent: FilterEvents, status: TransactionStatus[]): void {
+    const event = {
+      [FilterEvents.ENABLE]: "enable",
+      [FilterEvents.DISABLE]: "disable",
+    };
+
+    this.$emit(event[filterEvent], status);
+  }
 }
 </script>
 

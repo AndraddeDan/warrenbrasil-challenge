@@ -1,7 +1,11 @@
 <template>
   <div class="Transactions">
     <Header title="Transações" action="Status">
-      <FilterByStatus />
+      <FilterByStatus
+        :enabledFilters="selectedStatus"
+        @disable="deleteFilter"
+        @enable="addFilter"
+      />
       <template v-slot:action>
         <Searcher v-model="search" placeholder="Busque pelo título" />
       </template>
@@ -38,7 +42,13 @@ import { ToggleViewer } from "@/components/ToggleViewer";
 import { TransactionCard } from "@/components/TransactionCard";
 import { TransactionListHeader } from "@/components/TransactionListHeader";
 import { GroupByDate } from "@/components/GroupByDate";
-import { Transaction, DateGroup, ModalData, ModalTypes } from "@/models";
+import {
+  Transaction,
+  DateGroup,
+  ModalData,
+  ModalTypes,
+  TransactionStatus,
+} from "@/models";
 import { ModalService } from "@/services";
 
 @Component({
@@ -56,19 +66,25 @@ import { ModalService } from "@/services";
     ...mapGetters("transactions", {
       list: "transactionListGroupedByDate",
       searchedTitle: "searchedTitle",
+      selectedStatus: "selectedStatus",
     }),
   },
   methods: {
     ...mapActions("transactions", {
       setSearchByTitle: "setSearchByTitle",
+      addFilter: "addFilter",
+      deleteFilter: "deleteFilter",
     }),
   },
 })
 export default class Transactions extends Vue {
   public setSearchByTitle!: (title: string) => void;
+  public setFilter!: (status: TransactionStatus) => void;
+  public deleteFilter!: (status: TransactionStatus) => void;
 
   public list!: DateGroup<Transaction>[];
   public searchedTitle!: string;
+  public selectedStatus!: TransactionStatus[];
 
   get search(): string {
     return this.searchedTitle;

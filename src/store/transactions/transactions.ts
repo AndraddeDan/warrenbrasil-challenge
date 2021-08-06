@@ -1,14 +1,25 @@
 import { Module } from "vuex";
 import { AxiosError } from "axios";
 import { TransactionService } from "@/services";
-import { Transaction } from "@/models";
+import { Transaction, TransactionStatus } from "@/models";
 import { TransactionState } from "./transaction-state";
 import { TransactionCommits } from "./transaction-commits";
 import { RootState } from "../root-state";
-import { groupTransactionByDate, matchTransactionByTitle } from "./handlers";
+import {
+  groupTransactionByDate,
+  matchTransactionByStatus,
+  matchTransactionByTitle,
+  matchTransactionByTitleAndStatus,
+} from "./handlers";
 
-const { SET_LIST, SET_FETCH_LIST, SET_SEARCH_BY_TITLE, SET_CAN_SHOW_AMOUNT } =
-  TransactionCommits;
+const {
+  SET_LIST,
+  SET_FETCH_LIST,
+  SET_SEARCH_BY_TITLE,
+  SET_CAN_SHOW_AMOUNT,
+  ADD_FILTER,
+  DELETE_FILTER,
+} = TransactionCommits;
 
 export const transactions: Module<TransactionState, RootState> = {
   namespaced: true,
@@ -23,12 +34,26 @@ export const transactions: Module<TransactionState, RootState> = {
     transactionListGroupedByDate: ({
       transactionList,
       searchedTitle,
+      selectedStatus,
     }: TransactionState) => {
-      const list = searchedTitle.trim().length
-        ? transactionList.filter((t) =>
-            matchTransactionByTitle(t, searchedTitle)
-          )
-        : transactionList;
+      const canFilterByTitle = Boolean(searchedTitle.trim().length);
+      const canFilterBystatus = Boolean(selectedStatus.length);
+
+      const list = transactionList.filter((t) => {
+        if (canFilterByTitle && canFilterBystatus)
+          return matchTransactionByTitleAndStatus(
+            t,
+            selectedStatus,
+            searchedTitle
+          );
+
+        if (canFilterByTitle && !canFilterBystatus)
+          return matchTransactionByTitle(t, searchedTitle);
+        if (!canFilterByTitle && canFilterBystatus)
+          return matchTransactionByStatus(t, selectedStatus);
+
+        return t;
+      });
 
       return groupTransactionByDate(list);
     },
@@ -36,6 +61,7 @@ export const transactions: Module<TransactionState, RootState> = {
     searchedTitle: (state: TransactionState) => state.searchedTitle,
     isFetchingList: (state: TransactionState) => state.isFetchingList,
     canShowAmount: (state: TransactionState) => state.canShowAmount,
+    selectedStatus: (state: TransactionState) => state.selectedStatus,
   },
   mutations: {
     SET_LIST(state: TransactionState, list: Transaction[]) {
@@ -46,6 +72,14 @@ export const transactions: Module<TransactionState, RootState> = {
     },
     SET_SEARCH_BY_TITLE(state: TransactionState, searchedTitle: string) {
       state.searchedTitle = searchedTitle;
+    },
+    ADD_FILTER(state: TransactionState, status: TransactionStatus[]) {
+      state.selectedStatus = state.selectedStatus.concat(status);
+    },
+    DELETE_FILTER(state: TransactionState, status: TransactionStatus[]) {
+      state.selectedStatus = state.selectedStatus.filter(
+        (s) => !status.includes(s)
+      );
     },
     SET_CAN_SHOW_AMOUNT(state: TransactionState, canShow: boolean) {
       state.canShowAmount = canShow;
@@ -66,6 +100,12 @@ export const transactions: Module<TransactionState, RootState> = {
     },
     setSearchByTitle({ commit }, title: string): void {
       commit(SET_SEARCH_BY_TITLE, title);
+    },
+    addFilter({ commit }, status: TransactionStatus[]): void {
+      commit(ADD_FILTER, status);
+    },
+    deleteFilter({ commit }, status: TransactionStatus[]): void {
+      commit(DELETE_FILTER, status);
     },
     setCanShowAmount({ commit }, canShow: boolean): void {
       commit(SET_CAN_SHOW_AMOUNT, canShow);
