@@ -1,4 +1,5 @@
 import { DateGroup, Transaction, TransactionStatus } from "@/models";
+import { normalizeUtils } from "@/utils";
 
 export const groupTransactionByDate = (
   list: Transaction[]
@@ -14,12 +15,6 @@ export const groupTransactionByDate = (
     return groupList;
   }, []);
 };
-
-export const normalizeToMatch = (str: string): string =>
-  str
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "");
 
 export const matchTransactionByTitleAndStatus = (
   transaction: Transaction,
@@ -37,5 +32,4 @@ export const matchTransactionByStatus = (
 export const matchTransactionByTitle = (
   transaction: Transaction,
   title: string
-): boolean =>
-  normalizeToMatch(transaction.title).includes(normalizeToMatch(title));
+): boolean => normalizeUtils(transaction.title).includes(normalizeUtils(title));
