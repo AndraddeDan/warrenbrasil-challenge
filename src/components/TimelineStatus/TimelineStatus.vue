@@ -17,17 +17,11 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import ClosedEyeIcon from "@/assets/icons/ClosedEyeIcon.svg";
-import OpenedEyeIcon from "@/assets/icons/OpenedEyeIcon.svg";
 import { TransactionStatus } from "@/models";
 import { normalizeUtils } from "@/utils";
 
 @Component({
   name: "TimelineStatus",
-  components: {
-    ClosedEyeIcon,
-    OpenedEyeIcon,
-  },
 })
 export default class TimelineStatus extends Vue {
   @Prop({}) status: TransactionStatus;

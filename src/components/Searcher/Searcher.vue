@@ -4,6 +4,7 @@
       <SearchIcon />
     </label>
     <input
+      data-testid="Searcher-input"
       id="searchBy"
       class="Searcher__input"
       type="text"
@@ -17,15 +18,11 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { Header } from "@/components/Header";
-import { FilterByStatus } from "@/components/FilterByStatus";
 import SearchIcon from "@/assets/icons/SearchIcon.svg";
 
 @Component({
   name: "Searcher",
   components: {
-    Header,
-    FilterByStatus,
     SearchIcon,
   },
 })
