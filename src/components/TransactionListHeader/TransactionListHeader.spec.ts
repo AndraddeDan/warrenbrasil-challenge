@@ -11,10 +11,12 @@ describe("TransactionListHeader.vue", () => {
   it("check text header match", () => {
     const wrapper = shallowMount(TransactionListHeader);
 
-    const title = wrapper.find('[data-testid="title"]');
-    const description = wrapper.find('[data-testid="description"]');
-    const status = wrapper.find('[data-testid="status"]');
-    const amount = wrapper.find('[data-testid="amount"]');
+    const title = wrapper.find('[data-testid="TransactionListHeader-title"]');
+    const description = wrapper.find(
+      '[data-testid="TransactionListHeader-description"]'
+    );
+    const status = wrapper.find('[data-testid="TransactionListHeader-status"]');
+    const amount = wrapper.find('[data-testid="TransactionListHeader-amount"]');
 
     expect(title.text()).toBe("Título");
     expect(description.text()).toBe("Descrição");

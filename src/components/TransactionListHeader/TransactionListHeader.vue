@@ -1,9 +1,9 @@
 <template>
   <div class="TransactionListHeader">
-    <span data-testid="title">Título</span>
-    <span data-testid="description">Descrição</span>
-    <span data-testid="status">Status</span>
-    <span data-testid="amount">Valor</span>
+    <span data-testid="TransactionListHeader-title">Título</span>
+    <span data-testid="TransactionListHeader-description">Descrição</span>
+    <span data-testid="TransactionListHeader-status">Status</span>
+    <span data-testid="TransactionListHeader-amount">Valor</span>
   </div>
 </template>
 
