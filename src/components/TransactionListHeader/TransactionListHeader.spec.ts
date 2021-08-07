@@ -1,5 +1,5 @@
 import { shallowMount } from "@vue/test-utils";
-import TransactionListHeader from "@/components/TransactionListHeader/TransactionListHeader.vue";
+import TransactionListHeader from "./TransactionListHeader.vue";
 
 describe("TransactionListHeader.vue", () => {
   it("check header the titles quantity", () => {
