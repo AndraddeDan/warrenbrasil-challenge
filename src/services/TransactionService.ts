@@ -1,4 +1,4 @@
-import { transactionList } from "@/mock/transaction-list";
+import { transactionList } from "@/mocks";
 import { Transaction, TransactionStatus } from "@/models";
 import { TransactionAPI } from "@/models/api/TransactionAPI";
 import { RequestSimulator } from "@/utils";

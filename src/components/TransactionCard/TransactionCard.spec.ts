@@ -1,5 +1,5 @@
 import { shallowMount } from "@vue/test-utils";
-import { transaction } from "./mocks";
+import { transaction } from "@/mocks";
 import TransactionCard from "./TransactionCard.vue";
 
 describe("TransactionCard.vue", () => {
