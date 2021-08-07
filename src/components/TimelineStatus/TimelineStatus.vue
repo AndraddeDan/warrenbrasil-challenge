@@ -3,6 +3,7 @@
     <div class="TimelineStatus__line TimelineStatus-Line">
       <div
         class="TimelineStatus-Line__bar"
+        data-testid="TimelineStatus-bar"
         :class="modifier.length && `TimelineStatus-Line__bar--${modifier}`"
       />
     </div>
@@ -19,6 +20,7 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 import ClosedEyeIcon from "@/assets/icons/ClosedEyeIcon.svg";
 import OpenedEyeIcon from "@/assets/icons/OpenedEyeIcon.svg";
 import { TransactionStatus } from "@/models";
+import { normalizeUtils } from "@/utils";
 
 @Component({
   name: "TimelineStatus",
@@ -44,8 +46,7 @@ export default class TimelineStatus extends Vue {
   }
 
   private setStatusTransition(): void {
-    const normalize = (str: string) => str.toLowerCase().replace("í", "i");
-    setTimeout(() => (this.modifier = normalize(this.status)), 500);
+    setTimeout(() => (this.modifier = normalizeUtils(this.status)), 500);
   }
 }
 </script>
