@@ -42,9 +42,9 @@
 </template>
 
 <script lang="ts">
-import { Transaction } from "@/models";
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { TimelineStatus } from "@/components/TimelineStatus";
+import { Transaction } from "@/models";
 
 @Component({
   name: "TransacionResume",
