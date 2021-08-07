@@ -1,6 +1,8 @@
 <template>
   <div class="TransactionCard" v-on="$listeners">
-    <div class="TransactionCard__title">{{ transaction.title }}</div>
+    <div data-testid="title" class="TransactionCard__title">
+      {{ transaction.title }}
+    </div>
     <div class="TransactionCard__description">
       {{ transaction.description }}
     </div>
