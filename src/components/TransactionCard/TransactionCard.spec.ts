@@ -1,5 +1,5 @@
 import { shallowMount } from "@vue/test-utils";
-import TransactionCard from "@/components/TransactionCard/TransactionCard.vue";
+import TransactionCard from "./TransactionCard.vue";
 
 describe("TransactionCard.vue", () => {
   it("renders props.msg when passed", () => {
