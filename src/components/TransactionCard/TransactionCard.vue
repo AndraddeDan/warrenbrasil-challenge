@@ -1,14 +1,20 @@
 <template>
   <div class="TransactionCard" v-on="$listeners">
-    <div data-testid="title" class="TransactionCard__title">
+    <div data-testid="TransactionCard-title" class="TransactionCard__title">
       {{ transaction.title }}
     </div>
-    <div class="TransactionCard__description">
+    <div
+      data-testid="TransactionCard-description"
+      class="TransactionCard__description"
+    >
       {{ transaction.description }}
     </div>
-    <div class="TransactionCard__status">{{ transaction.status }}</div>
+    <div class="TransactionCard__status" data-testid="TransactionCard-status">
+      {{ transaction.status }}
+    </div>
     <div
       class="TransactionCard__amount"
+      data-testid="TransactionCard-amount"
       :class="{
         'TransactionCard__amount--hide': !canShowAmount,
       }"
@@ -34,7 +40,6 @@ export default class TransactionCard extends Vue {
 <style lang="less" scoped>
 .TransactionCard {
   background: @card-color;
-  // box-shadow: 7px 7px 15px @shadow-color;
   border-radius: 10px;
   box-sizing: border-box;
   cursor: pointer;
