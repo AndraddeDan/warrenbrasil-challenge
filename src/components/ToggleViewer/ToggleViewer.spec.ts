@@ -5,7 +5,7 @@ import ClosedEyeIcon from "@/assets/icons/ClosedEyeIcon.svg";
 import OpenedEyeIcon from "@/assets/icons/OpenedEyeIcon.svg";
 
 describe("ToggleViewer.vue", () => {
-  it("checks if only OpenedEye icon is render when  props.canShow is true", () => {
+  it("checks if only OpenedEye icon is render when props.canShow is true", () => {
     const wrapper = shallowMount(ToggleViewer, {
       propsData: { canShow: true },
     });
@@ -17,7 +17,7 @@ describe("ToggleViewer.vue", () => {
     expect(hasClosedEye.exists()).toBe(false);
   });
 
-  it("checks if only ClosedEye icon is render when  props.canShow is false", () => {
+  it("checks if only ClosedEye icon is render when props.canShow is false", () => {
     const wrapper = shallowMount(ToggleViewer, {
       propsData: { canShow: false },
     });
