@@ -12,7 +12,7 @@ describe("FilterByStatus.vue", () => {
     expect(wrapper.exists()).toBe(true);
   });
 
-  it("renders active buttons when the props.enabledFilters is passed", (done) => {
+  it("renders active buttons when the props.enabledFilters is passed", async (done) => {
     const enabledFilters = [
       TransactionStatus.created,
       TransactionStatus.processed,
@@ -24,11 +24,12 @@ describe("FilterByStatus.vue", () => {
     const activeButtons = wrapper.findAll(".FilterByStatus__button--active");
     expect(activeButtons.length).toBe(2);
 
-    wrapper.setData({ enabledFilters: [] });
+    await wrapper.setProps({ enabledFilters: [] });
 
     setTimeout(() => {
       const onlyAllBtn = wrapper.findAll(".FilterByStatus__button--active");
       expect(onlyAllBtn.length).toBe(1);
+      expect(wrapper.vm.$props.enabledFilters.length).toBe(0);
       done();
     });
   });
