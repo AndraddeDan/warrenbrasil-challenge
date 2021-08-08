@@ -27,4 +27,27 @@ describe("Searcher.vue", () => {
     expect(input.value).toMatch(value);
     expect(wrapper.vm.$props.value).toMatch(value);
   });
+
+  it("tests if the input trigger emit an event", async () => {
+    const wrapper = shallowMount(Searcher);
+
+    const input = wrapper.find(searchSelector);
+    input.trigger("input");
+
+    const event = wrapper.emitted().input;
+
+    expect(event).toBeTruthy();
+  });
+
+  it("tests if the input trigger call the method", () => {
+    const output = jest.fn();
+    const wrapper = shallowMount(Searcher, {
+      methods: { output },
+    });
+
+    const input = wrapper.find(searchSelector);
+    input.trigger("input");
+
+    expect(output).toHaveBeenCalled();
+  });
 });
