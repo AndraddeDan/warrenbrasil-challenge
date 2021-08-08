@@ -36,6 +36,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { TransactionStatus, FilterEvents } from "@/models";
+import { FilterEventTranslator } from "@/utils";
 
 @Component({
   name: "FilterByStatus",
@@ -46,12 +47,7 @@ export default class FilterByStatus extends Vue {
   public FilterEvents = FilterEvents;
 
   public output(filterEvent: FilterEvents, status: TransactionStatus[]): void {
-    const event = {
-      [FilterEvents.ENABLE]: "enable",
-      [FilterEvents.DISABLE]: "disable",
-    };
-
-    this.$emit(event[filterEvent], status);
+    this.$emit(FilterEventTranslator[filterEvent], status);
   }
 }
 </script>
