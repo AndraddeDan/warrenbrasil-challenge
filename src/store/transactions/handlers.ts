@@ -1,5 +1,5 @@
 import { DateGroup, Transaction, TransactionStatus } from "@/models";
-import { normalizeUtils } from "@/utils";
+import { NormalizeUtils } from "@/utils";
 
 export const groupTransactionByDate = (
   list: Transaction[]
@@ -32,4 +32,4 @@ export const matchTransactionByStatus = (
 export const matchTransactionByTitle = (
   transaction: Transaction,
   title: string
-): boolean => normalizeUtils(transaction.title).includes(normalizeUtils(title));
+): boolean => NormalizeUtils(transaction.title).includes(NormalizeUtils(title));

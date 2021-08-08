@@ -1,16 +1,17 @@
 import { TransactionStatus } from "@/models";
-import { normalizeUtils } from "@/utils";
+import { NormalizeUtils } from "@/utils";
 import { shallowMount } from "@vue/test-utils";
 import TimelineStatus from "./TimelineStatus.vue";
 
 describe("TimelineStatus.vue", () => {
+  const status = TransactionStatus.created;
+
   it("test if component is rendered ", () => {
     const wrapper = shallowMount(TimelineStatus);
     expect(wrapper.exists()).toBe(true);
   });
 
   it("renders props.status when passed", () => {
-    const status = TransactionStatus.created;
     const wrapper = shallowMount(TimelineStatus, {
       propsData: { status },
     });
@@ -19,13 +20,12 @@ describe("TimelineStatus.vue", () => {
   });
 
   it("renders css class after 500ms", (done) => {
-    const status = TransactionStatus.created;
     const wrapper = shallowMount(TimelineStatus, {
       propsData: { status },
     });
 
     const bar = wrapper.find('[data-testid="TimelineStatus-bar"]');
-    const cssClass = `TimelineStatus-Line__bar--${normalizeUtils(status)}`;
+    const cssClass = `TimelineStatus-Line__bar--${NormalizeUtils(status)}`;
 
     expect(bar.classes(cssClass)).toBe(false);
     setTimeout(() => {

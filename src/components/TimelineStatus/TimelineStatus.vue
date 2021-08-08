@@ -18,7 +18,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { TransactionStatus } from "@/models";
-import { normalizeUtils } from "@/utils";
+import { NormalizeUtils } from "@/utils";
 
 @Component({
   name: "TimelineStatus",
@@ -40,7 +40,8 @@ export default class TimelineStatus extends Vue {
   }
 
   private setStatusTransition(): void {
-    setTimeout(() => (this.modifier = normalizeUtils(this.status)), 500);
+    if (!this.status) return;
+    setTimeout(() => (this.modifier = NormalizeUtils(this.status)), 500);
   }
 }
 </script>
