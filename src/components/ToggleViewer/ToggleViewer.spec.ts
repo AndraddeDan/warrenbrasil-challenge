@@ -53,7 +53,7 @@ describe("ToggleViewer.vue", () => {
     expect(output).toBeCalled();
   });
 
-  it("tests if method param inverse to the canShow prop when the method is called", async () => {
+  it("tests if method param is inverse to the canShow prop when the method is called", async () => {
     const canShow = true;
     const output = jest.fn();
     const wrapper = shallowMount(ToggleViewer, {
