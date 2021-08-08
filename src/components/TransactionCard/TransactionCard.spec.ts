@@ -3,6 +3,11 @@ import { transaction } from "@/mocks";
 import TransactionCard from "./TransactionCard.vue";
 
 describe("TransactionCard.vue", () => {
+  const titleSelector = '[data-testid="TransactionCard-title"]';
+  const descriptionSelector = '[data-testid="TransactionCard-description"]';
+  const statusSelector = '[data-testid="TransactionCard-status"]';
+  const amountSelector = '[data-testid="TransactionCard-amount"]';
+
   it("test if component is rendered ", () => {
     const wrapper = shallowMount(TransactionCard, {
       propsData: { transaction, canShowAmount: true },
@@ -15,12 +20,10 @@ describe("TransactionCard.vue", () => {
       propsData: { transaction, canShowAmount: true },
     });
 
-    const title = wrapper.find('[data-testid="TransactionCard-title"]');
-    const description = wrapper.find(
-      '[data-testid="TransactionCard-description"]'
-    );
-    const status = wrapper.find('[data-testid="TransactionCard-status"]');
-    const amount = wrapper.find('[data-testid="TransactionCard-amount"]');
+    const title = wrapper.find(titleSelector);
+    const description = wrapper.find(descriptionSelector);
+    const status = wrapper.find(statusSelector);
+    const amount = wrapper.find(amountSelector);
 
     expect(title.text()).toMatch(transaction.title);
     expect(description.text()).toMatch(transaction.description);
@@ -33,7 +36,7 @@ describe("TransactionCard.vue", () => {
       propsData: { transaction, canShowAmount: false },
     });
 
-    const amount = wrapper.find('[data-testid="TransactionCard-amount"]');
+    const amount = wrapper.find(amountSelector);
     expect(amount.classes("TransactionCard__amount--hide")).toBe(true);
   });
 });
