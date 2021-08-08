@@ -1,7 +1,7 @@
 <template>
   <header class="wrapper">
     <div class="Header" :class="{ 'Header--closed': headerClosed }">
-      <h1 class="Header__title">
+      <h1 class="Header__title" data-testid="Header-title">
         <WarrenLogo />
         {{ title }}
       </h1>
@@ -19,7 +19,11 @@
           <div class="Slot-Actions__content">
             <slot name="action" />
           </div>
-          <button class="Slot-Actions__button" @click="toggleHeaderClose">
+          <button
+            class="Slot-Actions__button"
+            @click="toggleHeaderClose"
+            data-testid="Header-action"
+          >
             {{ action }}
             <TriangleIcon
               class="Slot-Actions__icon"
