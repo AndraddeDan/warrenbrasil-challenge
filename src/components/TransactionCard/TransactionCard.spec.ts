@@ -3,6 +3,13 @@ import { transaction } from "@/mocks";
 import TransactionCard from "./TransactionCard.vue";
 
 describe("TransactionCard.vue", () => {
+  it("test if component is rendered ", () => {
+    const wrapper = shallowMount(TransactionCard, {
+      propsData: { transaction, canShowAmount: true },
+    });
+    expect(wrapper.exists()).toBe(true);
+  });
+
   it("renders props.transaction when passed", () => {
     const wrapper = shallowMount(TransactionCard, {
       propsData: { transaction, canShowAmount: true },

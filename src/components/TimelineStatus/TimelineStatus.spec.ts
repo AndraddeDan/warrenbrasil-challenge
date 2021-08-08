@@ -4,6 +4,11 @@ import { shallowMount } from "@vue/test-utils";
 import TimelineStatus from "./TimelineStatus.vue";
 
 describe("TimelineStatus.vue", () => {
+  it("test if component is rendered ", () => {
+    const wrapper = shallowMount(TimelineStatus);
+    expect(wrapper.exists()).toBe(true);
+  });
+
   it("renders props.status when passed", () => {
     const status = TransactionStatus.created;
     const wrapper = shallowMount(TimelineStatus, {

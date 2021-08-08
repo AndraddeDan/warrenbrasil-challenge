@@ -4,6 +4,11 @@ import Searcher from "./Searcher.vue";
 describe("Searcher.vue", () => {
   const searchSelector = '[data-testid="Searcher-input"]';
 
+  it("test if component is rendered ", () => {
+    const wrapper = shallowMount(Searcher);
+    expect(wrapper.exists()).toBe(true);
+  });
+
   it("renders props.placeholder when passed", () => {
     const placeholder = "search here";
     const wrapper = shallowMount(Searcher, {

@@ -2,6 +2,11 @@ import { shallowMount } from "@vue/test-utils";
 import TransactionListHeader from "./TransactionListHeader.vue";
 
 describe("TransactionListHeader.vue", () => {
+  it("test if component is rendered ", () => {
+    const wrapper = shallowMount(TransactionListHeader);
+    expect(wrapper.exists()).toBe(true);
+  });
+
   it("check header the titles quantity", () => {
     const wrapper = shallowMount(TransactionListHeader);
     const headers = wrapper.findAll("span");
