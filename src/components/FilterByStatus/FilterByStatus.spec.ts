@@ -4,8 +4,11 @@ import FilterByStatus from "./FilterByStatus.vue";
 
 describe("FilterByStatus.vue", () => {
   const allBtnSelector = '[data-testid="FilterByStatus-allBtn"]';
-
   const output = jest.fn();
+  const enabledFilters = [
+    TransactionStatus.created,
+    TransactionStatus.processed,
+  ];
 
   it("test if component is rendered ", () => {
     const wrapper = shallowMount(FilterByStatus);
@@ -13,10 +16,6 @@ describe("FilterByStatus.vue", () => {
   });
 
   it("renders active buttons when the props.enabledFilters is passed", async (done) => {
-    const enabledFilters = [
-      TransactionStatus.created,
-      TransactionStatus.processed,
-    ];
     const wrapper = shallowMount(FilterByStatus, {
       propsData: { enabledFilters },
     });
@@ -44,18 +43,15 @@ describe("FilterByStatus.vue", () => {
     expect(buttons.length).toBe(buttonsLength);
   });
 
-  // it("tests if the click trigger emit an event", async () => {
-  //   const wrapper = shallowMount(FilterByStatus, {
-  //     methods: { output },
-  //   });
+  it("tests if the component emit an custom event", async () => {
+    const wrapper = shallowMount(FilterByStatus, {
+      methods: { output },
+      propsData: { enabledFilters },
+    });
 
-  //   const allBtn = wrapper.find(allBtnSelector);
-  //   await allBtn.trigger("click");
-
-  //   const change = wrapper.emitted().change;
-
-  //   expect(change).toBeTruthy();
-  // });
+    wrapper.vm.$emit("disable");
+    expect(wrapper.emitted().disable).toBeTruthy();
+  });
 
   it("tests if method param is passed correctly", async () => {
     const wrapper = shallowMount(FilterByStatus, {
