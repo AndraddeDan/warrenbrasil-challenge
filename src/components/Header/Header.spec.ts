@@ -1,4 +1,6 @@
 import { shallowMount } from "@vue/test-utils";
+import FilterByStatus from "@/components/FilterByStatus/FilterByStatus.vue";
+import Searcher from "@/components/Searcher/Searcher.vue";
 import Header from "./Header.vue";
 
 describe("Header.vue", () => {
@@ -91,5 +93,57 @@ describe("Header.vue", () => {
       expect(triangleIcon.classes("Slot-Actions__icon--invert")).toBe(false);
       done();
     });
+  });
+
+  it("renders main slot content", () => {
+    const mainSlot = "Good Morning";
+    const wrapper = shallowMount(Header, {
+      propsData: { title, action },
+      slots: {
+        default: mainSlot,
+      },
+    });
+
+    const slotInside = wrapper.find(slotInsideSelector);
+
+    expect(slotInside.element.textContent).toMatch(mainSlot);
+  });
+
+  it("renders a component in main slot content", () => {
+    const wrapper = shallowMount(Header, {
+      propsData: { title, action },
+      slots: {
+        default: FilterByStatus,
+      },
+    });
+
+    const componentInSlot = wrapper.findComponent(FilterByStatus);
+
+    expect(componentInSlot.exists()).toBe(true);
+  });
+
+  it("renders action slot content", () => {
+    const actionSlot = "Good Morning";
+    const wrapper = shallowMount(Header, {
+      propsData: { title, action },
+      slots: {
+        action: actionSlot,
+      },
+    });
+
+    const slotAction = wrapper.find(slotActionsSelector);
+    expect(slotAction.element.textContent).toMatch(actionSlot);
+  });
+
+  it("renders a component in action slot content", () => {
+    const wrapper = shallowMount(Header, {
+      propsData: { title, action },
+      slots: {
+        action: Searcher,
+      },
+    });
+
+    const componentInSlot = wrapper.findComponent(Searcher);
+    expect(componentInSlot.exists()).toBe(true);
   });
 });
