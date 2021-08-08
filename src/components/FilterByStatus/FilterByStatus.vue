@@ -1,6 +1,7 @@
 <template>
   <section class="FilterByStatus">
     <button
+      data-testid="FilterByStatus-allBtn"
       class="FilterByStatus__button"
       :class="{
         'FilterByStatus__button--active': !enabledFilters.length,
