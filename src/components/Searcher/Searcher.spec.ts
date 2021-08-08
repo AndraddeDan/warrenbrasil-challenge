@@ -33,7 +33,7 @@ describe("Searcher.vue", () => {
     expect(wrapper.vm.$props.value).toMatch(value);
   });
 
-  it("tests if the input trigger emit an event", async () => {
+  it("tests if the input trigger emit an event", () => {
     const wrapper = shallowMount(Searcher);
 
     const input = wrapper.find(searchSelector);
