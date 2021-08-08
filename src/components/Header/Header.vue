@@ -1,6 +1,10 @@
 <template>
   <header class="wrapper">
-    <div class="Header" :class="{ 'Header--closed': headerClosed }">
+    <div
+      class="Header"
+      data-testid="Header"
+      :class="{ 'Header--closed': headerClosed }"
+    >
       <h1 class="Header__title" data-testid="Header-title">
         <WarrenLogo />
         {{ title }}
@@ -8,12 +12,14 @@
       <div class="Header__slot Header-Slot">
         <div
           class="Header-Slot__inside Slot-Inside"
+          data-testid="Header-slotInside"
           :class="{ 'Slot-Inside--invisible': headerClosed }"
         >
           <slot />
         </div>
         <div
           class="Header-Slot__actions Slot-Actions"
+          data-testid="Header-slotActions"
           :class="{ 'Slot-Actions--closed': headerClosed }"
         >
           <div class="Slot-Actions__content">
@@ -27,6 +33,7 @@
             {{ action }}
             <TriangleIcon
               class="Slot-Actions__icon"
+              data-testid="Header-triangleIcon"
               :class="{ 'Slot-Actions__icon--invert': headerClosed }"
             />
           </button>
