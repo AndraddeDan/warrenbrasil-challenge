@@ -29,18 +29,6 @@ describe("ToggleViewer.vue", () => {
     expect(hasClosedEye.exists()).toBe(true);
   });
 
-  it("tests if the click trigger emit an event", () => {
-    const wrapper = shallowMount(ToggleViewer, {
-      propsData: { canShow: false },
-    });
-
-    const hasOpenedEye = wrapper.findComponent(OpenedEyeIcon);
-    const hasClosedEye = wrapper.findComponent(ClosedEyeIcon);
-
-    expect(hasOpenedEye.exists()).toBe(false);
-    expect(hasClosedEye.exists()).toBe(true);
-  });
-
   it("tests if the click trigger emit an event", async () => {
     const wrapper = shallowMount(ToggleViewer, {
       propsData: { canShow: false },
