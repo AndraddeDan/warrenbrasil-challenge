@@ -54,12 +54,11 @@ describe("ToggleViewer.vue", () => {
   });
 
   it("tests if the click trigger call the method", async () => {
+    const output = jest.fn();
     const wrapper = shallowMount(ToggleViewer, {
       propsData: { canShow: false },
+      methods: { output },
     });
-
-    const output = jest.fn();
-    wrapper.setMethods({ output });
 
     await wrapper.trigger("click");
 
@@ -68,12 +67,11 @@ describe("ToggleViewer.vue", () => {
 
   it("tests if method param inverse to the canShow prop when the method is called", async () => {
     const canShow = true;
+    const output = jest.fn();
     const wrapper = shallowMount(ToggleViewer, {
       propsData: { canShow },
+      methods: { output },
     });
-
-    const output = jest.fn();
-    wrapper.setMethods({ output });
 
     await wrapper.trigger("click");
 
