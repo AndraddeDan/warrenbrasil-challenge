@@ -1,7 +1,7 @@
 <template>
   <div class="GroupByDate">
     <div class="GroupByDate__date">{{ DateUtils.toString(date) }}</div>
-    <div class="GroupByDate__group">
+    <div class="GroupByDate__group" data-testid="GroupByDate-slot">
       <slot />
     </div>
   </div>
