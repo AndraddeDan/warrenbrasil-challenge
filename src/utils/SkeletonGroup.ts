@@ -1,4 +1,4 @@
-import { Transaction, TransactionStatus } from "@/models";
+import { DateGroup, Transaction, TransactionStatus } from "@/models";
 import { groupTransactionByDate } from "@/store/transactions/handlers";
 
 const transaction: Transaction = {
@@ -18,4 +18,5 @@ const list = new Array(10)
   .fill(transaction)
   .map((i, index) => ({ ...i, date: `2020-07-0${index % 3 ? day++ : day}` }));
 
-export const SkeletonGroup = groupTransactionByDate(list);
+export const SkeletonGroup = (): DateGroup<Transaction>[] =>
+  groupTransactionByDate(list);

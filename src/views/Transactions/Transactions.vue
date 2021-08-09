@@ -12,23 +12,25 @@
     </Header>
 
     <main class="Transactions__content Transactions-List">
-      <TransactionListHeader />
-      <GroupByDate
-        v-for="(group, index) in list"
-        :isFetching="isFetchingList"
-        :date="group.date"
-        :key="`GroupByDate-${index}`"
-      >
-        <TransactionCard
-          class="Transactions-List__card"
-          v-for="(transaction, index) in group.list"
-          :key="`TransactionCard-${index}`"
+      <template>
+        <TransactionListHeader />
+        <GroupByDate
+          v-for="(group, index) in list"
           :isFetching="isFetchingList"
-          :transaction="transaction"
-          :canShowAmount="canShowAmount"
-          @click="openModal(transaction)"
-        />
-      </GroupByDate>
+          :date="group.date"
+          :key="`GroupByDate-${index}`"
+        >
+          <TransactionCard
+            class="Transactions-List__card"
+            v-for="(transaction, index) in group.list"
+            :key="`TransactionCard-${index}`"
+            :isFetching="isFetchingList"
+            :transaction="transaction"
+            :canShowAmount="canShowAmount"
+            @click="openModal(transaction)"
+          />
+        </GroupByDate>
+      </template>
     </main>
 
     <ToggleViewer :canShow="canShowAmount" @change="setCanShowAmount" />
@@ -105,7 +107,7 @@ export default class Transactions extends Vue {
   }
 
   get list(): DateGroup<Transaction>[] {
-    return this.isFetchingList ? SkeletonGroup : this.listGroupedByDate;
+    return this.isFetchingList ? SkeletonGroup() : this.listGroupedByDate;
   }
 
   public openModal(transaction: Transaction): void {
