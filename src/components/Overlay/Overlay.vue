@@ -1,18 +1,22 @@
 <template>
   <div
+    data-testid="Overlay"
     v-if="content && component"
     class="Overlay"
     @click.self="closable && close()"
   >
     <component
+      data-testid="Overlay-type"
       :is="content"
       v-if="component"
       :closable="closable"
       @close="close"
     >
-      <component :is="component" v-bind="componentProps">
-        <slot />
-      </component>
+      <component
+        :is="component"
+        v-bind="componentProps"
+        data-testid="Overlay-component"
+      />
     </component>
   </div>
 </template>
@@ -23,7 +27,6 @@ import { VueConstructor } from "vue";
 
 import { EventBus } from "@/utils";
 import { OverlayData, ModalTypes, ModalEvents, OverlayContent } from "@/models";
-import { Modal } from "./Modal";
 import ModalFactory from "./Modal/ModalFactory";
 import OverlayFactory from "./OverlayFactory";
 
@@ -31,9 +34,6 @@ type CommonOptions = ModalTypes;
 
 @Component({
   name: "Overlay",
-  components: {
-    Modal,
-  },
 })
 export default class Overlay<P> extends Vue {
   public component: VueConstructor | null = null;
