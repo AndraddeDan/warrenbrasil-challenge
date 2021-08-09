@@ -1,6 +1,14 @@
 <template>
   <div class="GroupByDate">
-    <div class="GroupByDate__date">{{ DateUtils.toString(date) }}</div>
+    <div
+      data-testid="GroupByDate-date"
+      class="GroupByDate__date"
+      :class="{
+        'GroupByDate__date--loading': isFetching,
+      }"
+    >
+      {{ DateUtils.toString(date) }}
+    </div>
     <div class="GroupByDate__group" data-testid="GroupByDate-slot">
       <slot />
     </div>
@@ -16,6 +24,7 @@ import { DateUtils } from "@/utils";
 })
 export default class GroupByDate extends Vue {
   @Prop({ required: true }) date: Date;
+  @Prop({ default: false }) isFetching: boolean;
 
   public DateUtils = DateUtils;
 }
@@ -27,6 +36,12 @@ export default class GroupByDate extends Vue {
 
   &__date {
     margin-bottom: 10px;
+    transition: all 1s;
+
+    &--loading {
+      .line-loading();
+      max-width: 100px;
+    }
   }
 
   &__group {

@@ -7,6 +7,7 @@ import { CreateElement } from "vue";
 
 describe("GroupByDate.vue", () => {
   const groupSlotSelector = '[data-testid="GroupByDate-slot"]';
+  const dateSelector = '[data-testid="GroupByDate-date"]';
   const date = new Date();
 
   it("test if component is rendered ", () => {
@@ -21,7 +22,8 @@ describe("GroupByDate.vue", () => {
     const wrapper = shallowMount(GroupByDate, {
       propsData: { date },
     });
-    expect(wrapper.text()).toMatch(DateUtils.toString(date));
+    const divDate = wrapper.find(dateSelector);
+    expect(divDate.text()).toBe(DateUtils.toString(date));
   });
 
   it("renders slot content", () => {
@@ -55,5 +57,23 @@ describe("GroupByDate.vue", () => {
 
     const componentInSlot = wrapper.findComponent(TransactionCard);
     expect(componentInSlot.exists()).toBe(true);
+  });
+
+  it("loading effect only when isFetching prop is true", (done) => {
+    const wrapper = shallowMount(GroupByDate, {
+      propsData: { transaction, canShowAmount: false, isFetching: true, date },
+    });
+
+    const dateLoading = "GroupByDate__date--loading";
+    const divDate = wrapper.find(dateSelector);
+    expect(divDate.classes(dateLoading)).toBe(true);
+
+    wrapper.setProps({ isFetching: false });
+
+    setTimeout(() => {
+      const divDate = wrapper.find(dateSelector);
+      expect(divDate.classes(dateLoading)).toBe(false);
+      done();
+    });
   });
 });

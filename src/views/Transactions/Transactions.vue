@@ -15,6 +15,7 @@
       <TransactionListHeader />
       <GroupByDate
         v-for="(group, index) in list"
+        :isFetching="isFetchingList"
         :date="group.date"
         :key="`GroupByDate-${index}`"
       >
@@ -22,6 +23,7 @@
           class="Transactions-List__card"
           v-for="(transaction, index) in group.list"
           :key="`TransactionCard-${index}`"
+          :isFetching="isFetchingList"
           :transaction="transaction"
           :canShowAmount="canShowAmount"
           @click="openModal(transaction)"
@@ -51,6 +53,7 @@ import {
   TransactionStatus,
 } from "@/models";
 import { ModalService } from "@/services";
+import { SkeletonGroup } from "@/utils";
 
 @Component({
   name: "Transactions",
@@ -65,10 +68,11 @@ import { ModalService } from "@/services";
   },
   computed: {
     ...mapGetters("transactions", {
-      list: "transactionListGroupedByDate",
+      listGroupedByDate: "transactionListGroupedByDate",
       searchedTitle: "searchedTitle",
       selectedStatus: "selectedStatus",
       canShowAmount: "canShowAmount",
+      isFetchingList: "isFetchingList",
     }),
   },
   methods: {
@@ -86,10 +90,11 @@ export default class Transactions extends Vue {
   public setFilter!: (status: TransactionStatus) => void;
   public deleteFilter!: (status: TransactionStatus) => void;
 
-  public list!: DateGroup<Transaction>[];
+  public listGroupedByDate!: DateGroup<Transaction>[];
   public searchedTitle!: string;
   public selectedStatus!: TransactionStatus[];
   public canShowAmount!: boolean;
+  public isFetchingList!: boolean;
 
   get search(): string {
     return this.searchedTitle;
@@ -97,6 +102,10 @@ export default class Transactions extends Vue {
 
   set search(title: string) {
     this.setSearchByTitle(title);
+  }
+
+  get list(): DateGroup<Transaction>[] {
+    return this.isFetchingList ? SkeletonGroup : this.listGroupedByDate;
   }
 
   public openModal(transaction: Transaction): void {

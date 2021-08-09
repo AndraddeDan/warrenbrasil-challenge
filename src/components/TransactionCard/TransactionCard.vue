@@ -1,15 +1,30 @@
 <template>
   <div class="TransactionCard" v-on="$listeners">
-    <div data-testid="TransactionCard-title" class="TransactionCard__title">
+    <div
+      data-testid="TransactionCard-title"
+      class="TransactionCard__title"
+      :class="{
+        'TransactionCard__title--loading': isFetching,
+      }"
+    >
       {{ transaction.title }}
     </div>
     <div
       data-testid="TransactionCard-description"
       class="TransactionCard__description"
+      :class="{
+        'TransactionCard__description--loading': isFetching,
+      }"
     >
       {{ transaction.description }}
     </div>
-    <div class="TransactionCard__status" data-testid="TransactionCard-status">
+    <div
+      class="TransactionCard__status"
+      data-testid="TransactionCard-status"
+      :class="{
+        'TransactionCard__status--loading': isFetching,
+      }"
+    >
       {{ transaction.status }}
     </div>
     <div
@@ -17,6 +32,7 @@
       data-testid="TransactionCard-amount"
       :class="{
         'TransactionCard__amount--hide': !canShowAmount,
+        'TransactionCard__amount--loading': isFetching,
       }"
     >
       R$ {{ transaction.amount }}
@@ -34,6 +50,7 @@ import { Transaction } from "@/models";
 export default class TransactionCard extends Vue {
   @Prop({ required: true }) transaction: Transaction;
   @Prop({ required: true }) canShowAmount: boolean;
+  @Prop({ default: false }) isFetching: boolean;
 }
 </script>
 
@@ -72,15 +89,27 @@ export default class TransactionCard extends Vue {
   }
 
   &__title {
+    transition: all 1s;
     .sm({ grid-area: title; });
+    &--loading {
+      .line-loading();
+    }
   }
 
   &__description {
+    transition: all 1s;
     .sm({ grid-area: description; });
+    &--loading {
+      .line-loading();
+    }
   }
 
   &__status {
+    transition: all 1s;
     .sm({ grid-area: status; });
+    &--loading {
+      .line-loading();
+    }
   }
 
   &__amount {
@@ -92,6 +121,10 @@ export default class TransactionCard extends Vue {
     &--hide {
       background: @shadow-color;
       color: transparent;
+    }
+
+    &--loading {
+      .line-loading();
     }
   }
 }

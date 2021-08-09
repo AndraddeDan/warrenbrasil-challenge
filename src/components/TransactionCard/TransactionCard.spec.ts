@@ -39,4 +39,40 @@ describe("TransactionCard.vue", () => {
     const amount = wrapper.find(amountSelector);
     expect(amount.classes("TransactionCard__amount--hide")).toBe(true);
   });
+
+  it("loading effect only when isFetching prop is true", (done) => {
+    const wrapper = shallowMount(TransactionCard, {
+      propsData: { transaction, canShowAmount: false, isFetching: true },
+    });
+
+    const titleLoading = "TransactionCard__title--loading";
+    const descriptionLoading = "TransactionCard__description--loading";
+    const statusLoading = "TransactionCard__status--loading";
+    const amountLoading = "TransactionCard__amount--loading";
+
+    const title = wrapper.find(titleSelector);
+    const description = wrapper.find(descriptionSelector);
+    const status = wrapper.find(statusSelector);
+    const amount = wrapper.find(amountSelector);
+
+    expect(title.classes(titleLoading)).toBe(true);
+    expect(description.classes(descriptionLoading)).toBe(true);
+    expect(status.classes(statusLoading)).toBe(true);
+    expect(amount.classes(amountLoading)).toBe(true);
+
+    wrapper.setProps({ isFetching: false });
+
+    setTimeout(() => {
+      const title = wrapper.find(titleSelector);
+      const description = wrapper.find(descriptionSelector);
+      const status = wrapper.find(statusSelector);
+      const amount = wrapper.find(amountSelector);
+
+      expect(title.classes(titleLoading)).toBe(false);
+      expect(description.classes(descriptionLoading)).toBe(false);
+      expect(status.classes(statusLoading)).toBe(false);
+      expect(amount.classes(amountLoading)).toBe(false);
+      done();
+    });
+  });
 });
