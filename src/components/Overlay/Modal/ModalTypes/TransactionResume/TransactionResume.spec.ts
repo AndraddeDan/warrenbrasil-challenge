@@ -1,5 +1,5 @@
-import { transaction } from "@/mocks";
 import { shallowMount } from "@vue/test-utils";
+import { transaction } from "@/mocks";
 import TimelineStatus from "@/components/TimelineStatus/TimelineStatus.vue";
 import TransactionResume from "./TransactionResume.vue";
 

@@ -1,8 +1,12 @@
 import { shallowMount } from "@vue/test-utils";
-import Modal from "@/components/Overlay/Modal/Modal.vue";
+import TransactionResume from "@/components/Overlay/Modal/ModalTypes/TransactionResume/TransactionResume.vue";
+import { transaction } from "@/mocks";
+import Modal from "./Modal.vue";
+import { CreateElement } from "vue";
 
 describe("Modal.vue", () => {
   const closeSelector = '[data-testid="Modal-close"]';
+  const slotSelector = '[data-testid="Modal-body"]';
   const closable = true;
 
   it("test if component is rendered ", () => {
@@ -76,5 +80,38 @@ describe("Modal.vue", () => {
       expect(handleEscKeyup).toHaveBeenCalledTimes(0);
       done();
     });
+  });
+
+  it("renders main slot content", () => {
+    const mainSlot = "Good Morning";
+    const wrapper = shallowMount(Modal, {
+      propsData: { closable },
+      slots: {
+        default: mainSlot,
+      },
+    });
+
+    const slotInside = wrapper.find(slotSelector);
+    expect(slotInside.element.textContent).toMatch(mainSlot);
+  });
+
+  it("renders a component in main slot content", () => {
+    const resume = {
+      render(h: CreateElement) {
+        return h(TransactionResume, {
+          props: { transaction, canShowAmount: true },
+        });
+      },
+    };
+
+    const wrapper = shallowMount(Modal, {
+      propsData: { closable },
+      slots: {
+        default: resume,
+      },
+    });
+
+    const componentInSlot = wrapper.findComponent(TransactionResume);
+    expect(componentInSlot.exists()).toBe(true);
   });
 });

@@ -9,7 +9,7 @@
       >+</span
     >
 
-    <main class="Modal__body">
+    <main class="Modal__body" data-testid="Modal-body">
       <slot />
     </main>
   </div>
