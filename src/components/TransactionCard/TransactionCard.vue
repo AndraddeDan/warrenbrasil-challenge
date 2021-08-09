@@ -63,8 +63,7 @@ export default class TransactionCard extends Vue {
   border: none;
   width: 100%;
   .transaction-grid();
-  background-position: center;
-  transition: background 1s;
+  .ripple(@card-color);
   .sm({
     grid-template-columns: repeat(3, 1fr);
     grid-template-areas:
@@ -76,17 +75,6 @@ export default class TransactionCard extends Vue {
     row-gap: 20px;
     padding: 15px;
   });
-
-  &:hover {
-    background: @card-color
-      radial-gradient(circle, transparent 1%, @card-color 1%) center/15000%;
-  }
-
-  &:active {
-    background-color: fade(@auxiliary-color, 5%);
-    background-size: 100%;
-    transition: background 0s;
-  }
 
   &__title {
     transition: all 1s;

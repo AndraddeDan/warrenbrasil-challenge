@@ -64,3 +64,19 @@
   border-radius: 10px;
   animation: shine-lines 1.8s infinite linear;
 }
+
+.ripple(@main-color) {
+  background-position: center;
+  transition: background .8s;
+
+  &:hover {
+    background: @main-color
+      radial-gradient(circle, transparent 1%, @main-color 1%) center/15000%;
+  }
+
+  &:active {
+    background-color: fade(@main-color, 70%);
+    background-size: 100%;
+    transition: background 0s;
+  }
+}
