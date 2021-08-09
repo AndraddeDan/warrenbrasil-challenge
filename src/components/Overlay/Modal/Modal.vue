@@ -2,6 +2,7 @@
   <div class="Modal">
     <span
       v-if="closable"
+      data-testid="Modal-close"
       class="Modal__close"
       title="Fechar"
       @click="handleClose"
@@ -22,7 +23,6 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 })
 export default class Modal extends Vue {
   @Prop({}) public closable!: boolean;
-  @Prop({ default: false }) public overlayDark!: boolean;
 
   mounted(): void {
     this.subscribeToEvents();
