@@ -35,6 +35,7 @@ export const getters: GetterTree<TransactionState, RootState> = {
     state.transactionList,
   searchedTitle: (state: TransactionState): string => state.searchedTitle,
   isFetchingList: (state: TransactionState): boolean => state.isFetchingList,
+  hasError: (state: TransactionState): boolean => state.hasError,
   canShowAmount: (state: TransactionState): boolean => state.canShowAmount,
   selectedStatus: (state: TransactionState): TransactionStatus[] =>
     state.selectedStatus,

@@ -12,7 +12,7 @@
     </Header>
 
     <main class="Transactions__content Transactions-List">
-      <template>
+      <template v-if="!hasError">
         <TransactionListHeader />
         <GroupByDate
           v-for="(group, index) in list"
@@ -31,6 +31,7 @@
           />
         </GroupByDate>
       </template>
+      <TransactionRequestFail v-else @change="transactionList" />
     </main>
 
     <ToggleViewer :canShow="canShowAmount" @change="setCanShowAmount" />
@@ -47,6 +48,7 @@ import { ToggleViewer } from "@/components/ToggleViewer";
 import { TransactionCard } from "@/components/TransactionCard";
 import { TransactionListHeader } from "@/components/TransactionListHeader";
 import { GroupByDate } from "@/components/GroupByDate";
+import { TransactionRequestFail } from "@/components/TransactionRequestFail";
 import {
   Transaction,
   DateGroup,
@@ -67,6 +69,7 @@ import { SkeletonGroup } from "@/utils";
     TransactionListHeader,
     GroupByDate,
     TransactionCard,
+    TransactionRequestFail,
   },
   computed: {
     ...mapGetters("transactions", {
@@ -75,6 +78,7 @@ import { SkeletonGroup } from "@/utils";
       selectedStatus: "selectedStatus",
       canShowAmount: "canShowAmount",
       isFetchingList: "isFetchingList",
+      hasError: "hasError",
     }),
   },
   methods: {
@@ -83,6 +87,7 @@ import { SkeletonGroup } from "@/utils";
       addFilter: "addFilter",
       deleteFilter: "deleteFilter",
       setCanShowAmount: "setCanShowAmount",
+      transactionList: "transactionList",
     }),
   },
 })
@@ -91,12 +96,14 @@ export default class Transactions extends Vue {
   public setSearchByTitle!: (title: string) => void;
   public setFilter!: (status: TransactionStatus) => void;
   public deleteFilter!: (status: TransactionStatus) => void;
+  public transactionList!: () => Promise<Transaction[]>;
 
   public listGroupedByDate!: DateGroup<Transaction>[];
   public searchedTitle!: string;
   public selectedStatus!: TransactionStatus[];
   public canShowAmount!: boolean;
   public isFetchingList!: boolean;
+  public hasError!: boolean;
 
   get search(): string {
     return this.searchedTitle;

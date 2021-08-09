@@ -20,7 +20,7 @@ import RefreshIcon from "@/assets/icons/RefreshIcon.svg";
 })
 export default class TransactionRequestFail extends Vue {
   public output(): void {
-    this.$emit("change");
+    setTimeout(() => this.$emit("change"), 700);
   }
 }
 </script>

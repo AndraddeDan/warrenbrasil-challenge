@@ -9,6 +9,7 @@ const {
   SET_FETCH_LIST,
   SET_LIST,
   SET_SEARCH_BY_TITLE,
+  SET_ERROR,
 } = TransactionCommits;
 
 export const mutations: MutationTree<TransactionState> = {
@@ -31,5 +32,8 @@ export const mutations: MutationTree<TransactionState> = {
   },
   [SET_CAN_SHOW_AMOUNT](state: TransactionState, canShow: boolean): void {
     state.canShowAmount = canShow;
+  },
+  [SET_ERROR](state: TransactionState, hasError: boolean): void {
+    state.hasError = hasError;
   },
 };

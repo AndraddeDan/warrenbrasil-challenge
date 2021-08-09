@@ -17,12 +17,19 @@ describe("TransactionRequestFail.vue", () => {
     expect(hasRefreshIcon.exists()).toBe(true);
   });
 
-  it("tests if the click trigger emit an event", async () => {
+  it("tests if the click trigger emit an event after 700ms", async (done) => {
     const wrapper = shallowMount(TransactionRequestFail);
     const button = wrapper.find(buttonSelector);
     await button.trigger("click");
+
     const change = wrapper.emitted().change;
-    expect(change).toBeTruthy();
+    expect(change).toBeFalsy();
+
+    setTimeout(() => {
+      const change = wrapper.emitted().change;
+      expect(change).toBeTruthy();
+      done();
+    }, 800);
   });
 
   it("tests if the click trigger call the method", async () => {

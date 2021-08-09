@@ -12,10 +12,12 @@ const {
   SET_FETCH_LIST,
   SET_LIST,
   SET_SEARCH_BY_TITLE,
+  SET_ERROR,
 } = TransactionCommits;
 
 export const actions: ActionTree<TransactionState, RootState> = {
   transactionList({ commit }): Promise<Transaction[]> {
+    commit(SET_ERROR, false);
     commit(SET_FETCH_LIST, true);
     return new Promise((resolve, reject) => {
       TransactionService.getTransactionList()
@@ -23,7 +25,10 @@ export const actions: ActionTree<TransactionState, RootState> = {
           commit(SET_LIST, transactionList);
           resolve(transactionList);
         })
-        .catch((error: AxiosError) => reject(error))
+        .catch((error: AxiosError) => {
+          commit(SET_ERROR, true);
+          reject(error);
+        })
         .finally(() => commit(SET_FETCH_LIST, false));
     });
   },

@@ -8,6 +8,7 @@ import ToggleViewer from "@/components/ToggleViewer/ToggleViewer.vue";
 import TransactionCard from "@/components/TransactionCard/TransactionCard.vue";
 import TransactionListHeader from "@/components/TransactionListHeader/TransactionListHeader.vue";
 import GroupByDate from "@/components/GroupByDate/GroupByDate.vue";
+import TransactionRequestFail from "@/components/TransactionRequestFail/TransactionRequestFail.vue";
 
 import Transactions from "./Transactions.vue";
 
@@ -61,6 +62,7 @@ describe("Transactions.vue", () => {
         TransactionListHeader,
         GroupByDate,
         TransactionCard,
+        TransactionRequestFail,
       },
     });
 
@@ -89,6 +91,9 @@ describe("Transactions.vue", () => {
     const transactionListHeader = wrapper.findComponent(TransactionListHeader);
     const groupByDate = wrapper.findComponent(GroupByDate);
     const transactionCard = wrapper.findComponent(TransactionCard);
+    const transactionRequestFail = wrapper.findComponent(
+      TransactionRequestFail
+    );
 
     expect(header.exists()).toBe(true);
     expect(filterByStatus.exists()).toBe(true);
@@ -97,5 +102,6 @@ describe("Transactions.vue", () => {
     expect(transactionListHeader.exists()).toBe(true);
     expect(groupByDate.exists()).toBe(false);
     expect(transactionCard.exists()).toBe(false);
+    expect(transactionRequestFail.exists()).toBe(false);
   });
 });

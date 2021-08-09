@@ -1,7 +1,5 @@
-import { transactionList } from "@/mocks";
 import { Transaction, TransactionStatus } from "@/models";
 import { TransactionAPI } from "@/models/api/TransactionAPI";
-import { RequestSimulator } from "@/utils";
 import { ApiUrls, buildApiUrl } from "@/utils/endpoints";
 import { AxiosError, AxiosResponse } from "axios";
 import { ApiService } from "./ApiService";
@@ -16,24 +14,16 @@ const transform = (transaction: TransactionAPI) => ({
 export const TransactionService = {
   getTransactionList(): Promise<Transaction[]> {
     return new Promise((resolve, reject) => {
-      RequestSimulator(false, 3000, transactionList)
-        .then((res) => resolve(res.map((t) => transform(t))))
+      const url = buildApiUrl(ApiUrls.getTransactionList());
+
+      httpClient
+        .get(url)
+        .then((response: AxiosResponse<TransactionAPI[]>) =>
+          resolve(response.data.map((transaction) => transform(transaction)))
+        )
         .catch((err: AxiosError) => reject(err));
     });
   },
-
-  // getTransactionList(): Promise<Transaction[]> {
-  //   return new Promise((resolve, reject) => {
-  //     const url = buildApiUrl(ApiUrls.getTransactionList());
-
-  //     httpClient
-  //       .get(url)
-  //       .then((response: AxiosResponse<TransactionAPI[]>) =>
-  //         resolve(response.data.map((transaction) => transform(transaction)))
-  //       )
-  //       .catch((err: AxiosError) => reject(err));
-  //   });
-  // },
 
   getTransactionById(id: number): Promise<Transaction> {
     return new Promise((resolve, reject) => {
