@@ -1,19 +1,25 @@
 <template>
   <div class="TransacionResume">
     <div class="TransacionResume__header">
-      <h1>{{ transaction.title }}</h1>
+      <h1 data-testid="TransacionResume-title">{{ transaction.title }}</h1>
     </div>
     <div class="TransacionResume__body TransacionResume-Body">
       <div class="TransacionResume-Body__timeline">
-        <TimelineStatus :status="transaction.status" />
+        <TimelineStatus
+          data-testid="TransacionResume-status"
+          :status="transaction.status"
+        />
       </div>
       <div class="TransacionResume-Body__details">
         <div class="TransacionResume-Body__details-from Details-From">
           <h2>Transferindo de</h2>
           <hr />
           <div class="Details-From__line">
-            <span> {{ transaction.from }} </span>
+            <span data-testid="TransacionResume-from">
+              {{ transaction.from }}
+            </span>
             <span
+              data-testid="TransacionResume-fromAmount"
               :class="{
                 'Details-From__line--hide': !canShowAmount,
               }"
@@ -26,8 +32,11 @@
           <h2>Para</h2>
           <hr />
           <div class="Details-To__line">
-            <span> {{ transaction.to }} </span>
+            <span data-testid="TransacionResume-to">
+              {{ transaction.to }}
+            </span>
             <span
+              data-testid="TransacionResume-toAmount"
               :class="{
                 'Details-To__line--hide': !canShowAmount,
               }"
