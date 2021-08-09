@@ -66,4 +66,15 @@ describe("Modal.vue", () => {
       done();
     });
   });
+
+  it("tests if the esc keyup trigger call the method only when component is mounted", (done) => {
+    const handleEscKeyup = jest.fn();
+    const event = new KeyboardEvent("keyup", { keyCode: 27 });
+    document.dispatchEvent(event);
+
+    setTimeout(() => {
+      expect(handleEscKeyup).toHaveBeenCalledTimes(0);
+      done();
+    });
+  });
 });
