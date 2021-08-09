@@ -6,7 +6,7 @@ import {
   matchTransactionByStatus,
   matchTransactionByTitle,
   matchTransactionByTitleAndStatus,
-} from "./handlers";
+} from "@/utils/TransactionHandlers";
 import { TransactionState } from "./types";
 
 export const getters: GetterTree<TransactionState, RootState> = {

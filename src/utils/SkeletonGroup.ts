@@ -1,5 +1,5 @@
 import { DateGroup, Transaction, TransactionStatus } from "@/models";
-import { groupTransactionByDate } from "@/store/transactions/handlers";
+import { groupTransactionByDate } from "@/utils/TransactionHandlers";
 
 const transaction: Transaction = {
   id: "",
