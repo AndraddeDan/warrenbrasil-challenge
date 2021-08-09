@@ -15,7 +15,7 @@ describe("FilterByStatus.vue", () => {
     expect(wrapper.exists()).toBe(true);
   });
 
-  it("renders active buttons when the props.enabledFilters is passed", async (done) => {
+  it("renders active buttons when the props.enabledFilters is passed", (done) => {
     const wrapper = shallowMount(FilterByStatus, {
       propsData: { enabledFilters },
     });
@@ -23,7 +23,7 @@ describe("FilterByStatus.vue", () => {
     const activeButtons = wrapper.findAll(".FilterByStatus__button--active");
     expect(activeButtons.length).toBe(2);
 
-    await wrapper.setProps({ enabledFilters: [] });
+    wrapper.setProps({ enabledFilters: [] });
 
     setTimeout(() => {
       const onlyAllBtn = wrapper.findAll(".FilterByStatus__button--active");
