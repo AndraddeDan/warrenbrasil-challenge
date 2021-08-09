@@ -26,4 +26,44 @@ describe("Modal.vue", () => {
       done();
     });
   });
+
+  it("tests if the click trigger call the method", async () => {
+    const handleClose = jest.fn();
+    const wrapper = shallowMount(Modal, {
+      propsData: { closable },
+      methods: { handleClose },
+    });
+
+    const closeButton = wrapper.find(closeSelector);
+    await closeButton.trigger("click");
+
+    expect(handleClose).toBeCalled();
+  });
+
+  it("tests if the click trigger emit an event", async () => {
+    const handleClose = jest.fn();
+    const wrapper = shallowMount(Modal, {
+      propsData: { closable },
+      methods: { handleClose },
+    });
+
+    wrapper.vm.$emit("close");
+    expect(wrapper.emitted().close).toBeTruthy();
+  });
+
+  it("tests if the esc keyup trigger call the method", (done) => {
+    const handleEscKeyup = jest.fn();
+    const wrapper = shallowMount(Modal, {
+      propsData: { closable },
+      methods: { handleEscKeyup },
+    });
+
+    const event = new KeyboardEvent("keyup", { keyCode: 27 });
+    document.dispatchEvent(event);
+
+    setTimeout(() => {
+      expect(handleEscKeyup).toHaveBeenCalled();
+      done();
+    });
+  });
 });
