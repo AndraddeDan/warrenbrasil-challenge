@@ -4,7 +4,6 @@ import FilterByStatus from "./FilterByStatus.vue";
 
 describe("FilterByStatus.vue", () => {
   const allBtnSelector = '[data-testid="FilterByStatus-allBtn"]';
-  const output = jest.fn();
   const enabledFilters = [
     TransactionStatus.created,
     TransactionStatus.processed,
@@ -44,6 +43,7 @@ describe("FilterByStatus.vue", () => {
   });
 
   it("tests if the component emit an custom event", async () => {
+    const output = jest.fn();
     const wrapper = shallowMount(FilterByStatus, {
       methods: { output },
       propsData: { enabledFilters },
@@ -54,6 +54,7 @@ describe("FilterByStatus.vue", () => {
   });
 
   it("tests if method param is passed correctly", async () => {
+    const output = jest.fn();
     const wrapper = shallowMount(FilterByStatus, {
       methods: { output },
     });
@@ -68,6 +69,7 @@ describe("FilterByStatus.vue", () => {
   });
 
   it("tests if the click trigger call the method", async () => {
+    const output = jest.fn();
     const wrapper = shallowMount(FilterByStatus, {
       methods: { output },
     });
