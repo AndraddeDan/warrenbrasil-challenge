@@ -109,6 +109,8 @@ export default class Transactions extends Vue {
   }
 
   public openModal(transaction: Transaction): void {
+    if (this.isFetchingList) return;
+
     const modalData: ModalData<{
       canShowAmount: boolean;
       transaction: Transaction;
