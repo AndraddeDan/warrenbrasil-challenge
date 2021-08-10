@@ -15,12 +15,13 @@
       <template v-if="!hasError">
         <TransactionListHeader />
         <GroupByDate
-          v-for="(group, index) in list"
+          v-for="(group, idx) in list"
           :isFetching="isFetchingList"
           :date="group.date"
-          :key="`GroupByDate-${index}`"
+          :key="`GroupByDate-${idx}`"
         >
           <TransactionCard
+            :data-testid="`TransactionsList-card(${idx}${index})`"
             class="Transactions-List__card"
             v-for="(transaction, index) in group.list"
             :key="`TransactionCard-${index}`"

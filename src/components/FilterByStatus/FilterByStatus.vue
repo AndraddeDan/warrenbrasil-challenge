@@ -11,24 +11,25 @@
       Todos
     </button>
     <button
+      :data-testid="`FilterByStatus-allBtn(${index})`"
       class="FilterByStatus__button"
       :class="{
         'FilterByStatus__button--active': enabledFilters.includes(
-          TransactionStatus[index]
+          TransactionStatus[status]
         ),
       }"
-      v-for="(index, status) in Object.keys(TransactionStatus)"
-      :key="`FilterByStatus-${status}`"
+      v-for="(status, index) in Object.keys(TransactionStatus)"
+      :key="`FilterByStatus-${index}`"
       @click="
         output(
-          enabledFilters.includes(TransactionStatus[index])
+          enabledFilters.includes(TransactionStatus[status])
             ? FilterEvents.DISABLE
             : FilterEvents.ENABLE,
-          [TransactionStatus[index]]
+          [TransactionStatus[status]]
         )
       "
     >
-      {{ TransactionStatus[index] }}
+      {{ TransactionStatus[status] }}
     </button>
   </section>
 </template>

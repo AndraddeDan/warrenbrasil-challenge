@@ -1,5 +1,9 @@
 <template>
-  <button class="ToggleViewer" @click="output(!canShow)">
+  <button
+    data-testid="ToggleViewer"
+    class="ToggleViewer"
+    @click="output(!canShow)"
+  >
     <OpenedEyeIcon v-if="canShow" />
     <ClosedEyeIcon v-else />
   </button>
