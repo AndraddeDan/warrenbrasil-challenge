@@ -1,3 +1,7 @@
+# Transactions List App
+
+![print do projeto](./print.png)
+
 # Documentação 📑
 Um guia rápido das minhas escolhas para o projeto!
 
