@@ -1,4 +1,4 @@
-# Extrato de Movimentações
+# Extrato de Transações
 
 ![print do projeto](./print.png)
 
